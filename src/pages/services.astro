@@ -1,0 +1,219 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const services = [
+  {
+    id: 'it-consulting',
+    icon: 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z',
+    title: 'IT Consulting',
+    description: 'Strategic technology guidance to align your IT infrastructure with business objectives.',
+    features: [
+      'Technology roadmap development',
+      'Digital transformation strategy',
+      'IT infrastructure assessment',
+      'Vendor selection and management',
+      'Process optimization',
+    ],
+  },
+  {
+    id: 'cloud-solutions',
+    icon: 'M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z',
+    title: 'Cloud Solutions',
+    description: 'Scalable cloud infrastructure and migration services for modern enterprises.',
+    features: [
+      'Cloud migration planning',
+      'AWS, Azure, GCP deployment',
+      'Hybrid cloud architecture',
+      'Cloud cost optimization',
+      'Disaster recovery solutions',
+    ],
+  },
+  {
+    id: 'cybersecurity',
+    icon: 'M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z',
+    title: 'Cybersecurity',
+    description: 'Comprehensive security solutions to protect your digital assets and data.',
+    features: [
+      'Security audits and assessments',
+      'Penetration testing',
+      'SIEM implementation',
+      'Compliance management (GDPR, ISO)',
+      'Incident response planning',
+    ],
+  },
+  {
+    id: 'software-development',
+    icon: 'M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4',
+    title: 'Software Development',
+    description: 'Custom software solutions tailored to your unique business requirements.',
+    features: [
+      'Custom web applications',
+      'Mobile app development',
+      'API development & integration',
+      'Legacy system modernization',
+      'DevOps implementation',
+    ],
+  },
+  {
+    id: 'data-analytics',
+    icon: 'M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4',
+    title: 'Data Analytics',
+    description: 'Transform raw data into actionable insights with advanced analytics.',
+    features: [
+      'Business intelligence solutions',
+      'Data warehouse design',
+      'Predictive analytics',
+      'Real-time dashboards',
+      'Machine learning integration',
+    ],
+  },
+  {
+    id: 'it-support',
+    icon: 'M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z',
+    title: 'IT Support',
+    description: '24/7 technical support and maintenance for seamless operations.',
+    features: [
+      '24/7 helpdesk support',
+      'Remote and on-site assistance',
+      'Network monitoring',
+      'Hardware maintenance',
+      'Software updates and patches',
+    ],
+  },
+];
+
+const process = [
+  { step: '01', title: 'Discovery', description: 'We analyze your current infrastructure and understand your business goals.' },
+  { step: '02', title: 'Strategy', description: 'Our experts develop a tailored technology roadmap for your organization.' },
+  { step: '03', title: 'Implementation', description: 'We execute the plan with precision, ensuring minimal disruption.' },
+  { step: '04', title: 'Support', description: 'Ongoing maintenance and support to keep your systems running optimally.' },
+];
+---
+
+<Layout title="Services" description="Explore our comprehensive IT services including consulting, cloud solutions, cybersecurity, and software development.">
+  <!-- Hero Section -->
+  <section class="relative bg-gradient-to-br from-primary via-primary-dark to-dark py-20 lg:py-28">
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute top-20 right-20 w-72 h-72 bg-teal rounded-full blur-3xl"></div>
+      <div class="absolute bottom-10 left-10 w-96 h-96 bg-accent rounded-full blur-3xl"></div>
+    </div>
+    
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <span class="inline-block text-teal-light font-semibold text-sm uppercase tracking-wider mb-4">What We Offer</span>
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+        Our Services
+      </h1>
+      <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+        Comprehensive IT solutions designed to drive innovation, enhance security, and accelerate your digital transformation.
+      </p>
+    </div>
+  </section>
+
+  <!-- Services Grid -->
+  <section class="py-20 lg:py-28 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-8">
+        {services.map((service) => (
+          <div id={service.id} class="bg-gray-light rounded-2xl p-8 lg:p-10 hover:shadow-xl transition-shadow duration-300">
+            <div class="flex items-start gap-6">
+              <div class="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={service.icon} />
+                </svg>
+              </div>
+              <div class="flex-1">
+                <h2 class="text-2xl font-bold text-gray-900 mb-3">{service.title}</h2>
+                <p class="text-gray-600 mb-6">{service.description}</p>
+                <ul class="space-y-3">
+                  {service.features.map((feature) => (
+                    <li class="flex items-center gap-3 text-gray-700">
+                      <svg class="w-5 h-5 text-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Process Section -->
+  <section class="py-20 lg:py-28 bg-gray-light">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-teal font-semibold text-sm uppercase tracking-wider">Our Process</span>
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-3 mb-4">
+          How We Work
+        </h2>
+        <p class="text-gray-600 text-lg">
+          A proven methodology that ensures successful project delivery every time.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {process.map((item, index) => (
+          <div class="relative">
+            <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow h-full">
+              <div class="text-5xl font-bold text-primary/10 mb-4">{item.step}</div>
+              <h3 class="text-xl font-semibold text-gray-900 mb-3">{item.title}</h3>
+              <p class="text-gray-600">{item.description}</p>
+            </div>
+            {index < process.length - 1 && (
+              <div class="hidden lg:block absolute top-1/2 -right-4 transform -translate-y-1/2 z-10">
+                <svg class="w-8 h-8 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Technologies Section -->
+  <section class="py-20 lg:py-28 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-teal font-semibold text-sm uppercase tracking-wider">Technologies</span>
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-3 mb-4">
+          Tools & Platforms We Use
+        </h2>
+        <p class="text-gray-600 text-lg">
+          We leverage industry-leading technologies to deliver robust solutions.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8">
+        {['AWS', 'Azure', 'Google Cloud', 'Docker', 'Kubernetes', 'React', 'Node.js', 'Python', 'PostgreSQL', 'MongoDB', 'Terraform', 'Jenkins'].map((tech) => (
+          <div class="bg-gray-light rounded-xl p-6 flex items-center justify-center hover:bg-primary hover:text-white transition-colors group">
+            <span class="font-semibold text-gray-700 group-hover:text-white">{tech}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 bg-gradient-to-br from-primary via-primary-dark to-dark">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+        Ready to Get Started?
+      </h2>
+      <p class="text-xl text-gray-300 mb-8">
+        Let's discuss how our services can help transform your business.
+      </p>
+      <a href="/contact" class="inline-flex items-center justify-center gap-2 bg-teal hover:bg-teal-light text-white px-8 py-4 rounded-lg font-semibold transition-all duration-200 shadow-lg hover:shadow-xl">
+        Contact Us Today
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+    </div>
+  </section>
+</Layout>
