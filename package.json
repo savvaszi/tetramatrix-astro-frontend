@@ -1,5 +1,5 @@
 {
-  "name": "peaceful-phase",
+  "name": "tetramatrix-frontend",
   "type": "module",
   "version": "0.0.1",
   "engines": {
@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "start": "node ./dist/server/entry.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },
