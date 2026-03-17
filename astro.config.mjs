@@ -10,6 +10,10 @@ export default defineConfig({
     mode: 'standalone'
   }),
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    define: {
+      'import.meta.env.DIRECTUS_URL': JSON.stringify(process.env.DIRECTUS_URL),
+      'import.meta.env.DIRECTUS_TOKEN': JSON.stringify(process.env.DIRECTUS_TOKEN),
+    }
   }
 });

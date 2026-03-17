@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "milestones",
+  "info": {
+    "singularName": "milestone",
+    "pluralName": "milestones",
+    "displayName": "Milestone",
+    "description": "Company milestones for About page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "year": {
+      "type": "string",
+      "required": true
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    }
+  }
+}
