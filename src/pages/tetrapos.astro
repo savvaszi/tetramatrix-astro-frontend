@@ -1,0 +1,465 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const coreFeatures = [
+  {
+    icon: 'M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2',
+    title: 'No Expensive Hardware',
+    description: 'No expensive hardware is needed to operate Tetrapos. Save money - use your current devices! The POS can be loaded onto any computer browser or mobile device.',
+  },
+  {
+    icon: 'M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z',
+    title: 'Barcode Scan & Search',
+    description: 'Add products to cart by scanning barcodes with a scanner or camera. Search products quickly with our intelligent search system.',
+  },
+  {
+    icon: 'M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z',
+    title: 'Split & Single Payment',
+    description: 'Accept single or split payments using multiple methods. Take payment in cash, card, and other payment methods simultaneously.',
+  },
+  {
+    icon: 'M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z',
+    title: 'Print Receipts & Invoices',
+    description: 'Automatic & manual printing in branded receipt format. Silent print feature for seamless checkout experience.',
+  },
+  {
+    icon: 'M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z',
+    title: 'Offline Data Store',
+    description: 'Capable of storing data locally and running without internet. When connection returns, data syncs automatically to the cloud.',
+  },
+  {
+    icon: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+    title: 'Cash Drawer Management',
+    description: 'View current cash drawer balance, order information. Open, close, and manage cash drawers with detailed logging.',
+  },
+];
+
+const restaurantFeatures = [
+  {
+    icon: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4',
+    title: 'Table Management',
+    description: 'Create, update, and manage tables. Set capacity limits and parcel options for each table.',
+  },
+  {
+    icon: 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z',
+    title: 'Waiter Panel',
+    description: 'Waiters can create orders, book tables, send orders to kitchen, and serve customers efficiently.',
+  },
+  {
+    icon: 'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10',
+    title: 'Kitchen Panel',
+    description: 'Chefs can start preparing, deny orders with reasons, and notify when ready to serve.',
+  },
+  {
+    icon: 'M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z',
+    title: 'Cashier Panel',
+    description: 'View dashboard, manage orders by status, process payments, and complete transactions.',
+  },
+  {
+    icon: 'M12 6v6m0 0v6m0-6h6m-6 0H6',
+    title: 'Addon Management',
+    description: 'Add extra options to products so customers can customize their orders with additional items.',
+  },
+  {
+    icon: 'M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z',
+    title: 'Messaging & Chatting',
+    description: 'Real-time communication between waiters, chefs, cashiers, and admins.',
+  },
+];
+
+const stockFeatures = [
+  {
+    icon: 'M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4',
+    title: 'Full Stock Management',
+    description: 'Manage product stock, purchase from vendors, transfer between outlets, and accept/reject products.',
+  },
+  {
+    icon: 'M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4',
+    title: 'WooCommerce Stock Sync',
+    description: 'Unified stock management between your website and POS. Automatic updates across all channels.',
+  },
+  {
+    icon: 'M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4',
+    title: 'Stock Transfer',
+    description: 'Transfer stock between outlets, request stock, accept or decline stock requests seamlessly.',
+  },
+  {
+    icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z',
+    title: 'Multi-Outlet Stock',
+    description: 'Separate stock management for each outlet. Transfer quantities between locations easily.',
+  },
+];
+
+const additionalFeatures = [
+  'Customer Queue/Hold Cart',
+  'Order Notes & Discounts',
+  'Customer Management',
+  'User/Staff Management',
+  'Keyboard Shortcuts',
+  'Multiple Color Themes',
+  'Any Language Support',
+  'RTL Support',
+  'HPOS Support',
+  'Barcode Generator',
+  'Custom Invoice Design',
+  'REST API Based',
+  'Customer Display',
+  'Favorite Products',
+  'Cash Drawer Logs',
+  'Online Order List',
+  'Order Return/Refund',
+  'Stripe Payment',
+  'Stripe Terminal',
+  'Custom Payment Methods',
+  'Email Notifications',
+  'Tax Calculation Options',
+  'QR Code on Invoices',
+  'Silent Print',
+  'Desktop App Creation',
+  'All Browser Support',
+  'Detailed Reporting',
+  'Table QR/Barcode',
+  'Kiosk App Support',
+  'Waiter Tips',
+  'Round Up Totals',
+];
+
+const posModes = [
+  {
+    title: 'Grocery Mode',
+    description: 'Perfect for retail stores, supermarkets, and grocery shops with quick checkout and inventory management.',
+    icon: 'M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z',
+  },
+  {
+    title: 'Restaurant (Pay First)',
+    description: 'Customers pay upfront at the counter before being seated or served. Ideal for fast food and cafes.',
+    icon: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+  },
+  {
+    title: 'Restaurant (Traditional)',
+    description: 'Waiter takes orders, kitchen prepares, waiter serves, then cashier processes payment. Full-service dining.',
+    icon: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4',
+  },
+];
+---
+
+<Layout title="Tetrapos - Point of Sale System" description="Tetrapos is a powerful WooCommerce POS system. Use your online store as a local store with ease. No expensive hardware needed.">
+  <!-- Hero Section -->
+  <section class="relative bg-gradient-to-br from-primary via-primary-dark to-dark py-20 lg:py-32 overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute top-20 left-10 w-72 h-72 bg-teal rounded-full blur-3xl"></div>
+      <div class="absolute bottom-20 right-10 w-96 h-96 bg-accent rounded-full blur-3xl"></div>
+    </div>
+    
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <span class="inline-block bg-teal/20 text-teal-light px-4 py-2 rounded-full text-sm font-semibold mb-6">
+            #1 WooCommerce POS System
+          </span>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+            Tetrapos
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-light to-accent"> Point of Sale</span>
+          </h1>
+          <p class="text-xl text-gray-300 mb-8">
+            Use your online store as a local store with ease. The ultimate WooCommerce POS system for retail stores, restaurants, and cafes. No expensive hardware needed!
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="/contact" class="inline-flex items-center justify-center gap-2 bg-teal hover:bg-teal-light text-white px-8 py-4 rounded-lg font-semibold transition-all duration-200 shadow-lg hover:shadow-xl">
+              Get Started
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+            <a href="#features" class="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-lg font-semibold transition-all duration-200 backdrop-blur-sm border border-white/20">
+              View Features
+            </a>
+          </div>
+        </div>
+        
+        <div class="relative">
+          <img 
+            src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=600&fit=crop" 
+            alt="Tetrapos POS System"
+            class="w-full rounded-2xl shadow-2xl"
+          />
+          <div class="absolute -bottom-6 -left-6 bg-white rounded-xl p-4 shadow-xl">
+            <div class="flex items-center gap-3">
+              <div class="w-12 h-12 bg-teal/10 rounded-lg flex items-center justify-center">
+                <svg class="w-6 h-6 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div>
+                <p class="font-semibold text-gray-900">Works Offline</p>
+                <p class="text-sm text-gray-500">Sync when online</p>
+              </div>
+            </div>
+          </div>
+          <div class="absolute -top-6 -right-6 bg-white rounded-xl p-4 shadow-xl">
+            <div class="flex items-center gap-3">
+              <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <div>
+                <p class="font-semibold text-gray-900">Any Device</p>
+                <p class="text-sm text-gray-500">Mobile & Desktop</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POS Modes Section -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-teal font-semibold text-sm uppercase tracking-wider">Flexible Modes</span>
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-3 mb-4">
+          One System, Multiple Business Types
+        </h2>
+        <p class="text-gray-600 text-lg">
+          Tetrapos adapts to your business model with three distinct operating modes.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        {posModes.map((mode) => (
+          <div class="bg-gray-light rounded-2xl p-8 text-center hover:shadow-xl transition-shadow">
+            <div class="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-6">
+              <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={mode.icon} />
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-3">{mode.title}</h3>
+            <p class="text-gray-600">{mode.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Features Section -->
+  <section id="features" class="py-20 lg:py-28 bg-gray-light">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-teal font-semibold text-sm uppercase tracking-wider">Core Features</span>
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-3 mb-4">
+          Everything You Need for Your POS
+        </h2>
+        <p class="text-gray-600 text-lg">
+          Tetrapos comes packed with powerful features to streamline your sales operations.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {coreFeatures.map((feature) => (
+          <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow">
+            <div class="w-14 h-14 bg-teal/10 rounded-xl flex items-center justify-center mb-6">
+              <svg class="w-7 h-7 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={feature.icon} />
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-3">{feature.title}</h3>
+            <p class="text-gray-600">{feature.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Restaurant Features Section -->
+  <section class="py-20 lg:py-28 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <span class="text-teal font-semibold text-sm uppercase tracking-wider">Restaurant Mode</span>
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-3 mb-6">
+            Complete Restaurant Management
+          </h2>
+          <p class="text-gray-600 text-lg mb-8">
+            Tetrapos offers a full suite of restaurant features including table management, waiter panels, kitchen displays, and more.
+          </p>
+          
+          <div class="grid sm:grid-cols-2 gap-6">
+            {restaurantFeatures.map((feature) => (
+              <div class="flex items-start gap-4">
+                <div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={feature.icon} />
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-gray-900">{feature.title}</h4>
+                  <p class="text-sm text-gray-600">{feature.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        
+        <div class="relative">
+          <img 
+            src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&h=600&fit=crop" 
+            alt="Restaurant POS"
+            class="w-full rounded-2xl shadow-2xl"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stock Management Section -->
+  <section class="py-20 lg:py-28 bg-gray-light">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <div class="order-2 lg:order-1">
+          <img 
+            src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&h=600&fit=crop" 
+            alt="Stock Management"
+            class="w-full rounded-2xl shadow-2xl"
+          />
+        </div>
+        
+        <div class="order-1 lg:order-2">
+          <span class="text-teal font-semibold text-sm uppercase tracking-wider">Inventory Control</span>
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-3 mb-6">
+            Powerful Stock Management
+          </h2>
+          <p class="text-gray-600 text-lg mb-8">
+            Keep track of your inventory across multiple outlets with real-time stock synchronization with WooCommerce.
+          </p>
+          
+          <div class="space-y-6">
+            {stockFeatures.map((feature) => (
+              <div class="flex items-start gap-4 bg-white rounded-xl p-4 shadow-sm">
+                <div class="w-12 h-12 bg-teal/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <svg class="w-6 h-6 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={feature.icon} />
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-gray-900">{feature.title}</h4>
+                  <p class="text-sm text-gray-600">{feature.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- All Features Grid -->
+  <section class="py-20 lg:py-28 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-teal font-semibold text-sm uppercase tracking-wider">Complete Feature List</span>
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-3 mb-4">
+          And So Much More...
+        </h2>
+        <p class="text-gray-600 text-lg">
+          Tetrapos is packed with features to handle every aspect of your business.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {additionalFeatures.map((feature) => (
+          <div class="flex items-center gap-3 bg-gray-light rounded-lg p-4">
+            <svg class="w-5 h-5 text-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <span class="text-gray-700 text-sm font-medium">{feature}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Screenshots Section -->
+  <section class="py-20 lg:py-28 bg-gray-light">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-teal font-semibold text-sm uppercase tracking-wider">Screenshots</span>
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-3 mb-4">
+          See Tetrapos in Action
+        </h2>
+        <p class="text-gray-600 text-lg">
+          A glimpse of the beautiful and intuitive interface.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow">
+          <img 
+            src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop" 
+            alt="Tetrapos POS Interface"
+            class="w-full h-64 object-cover"
+          />
+        </div>
+        <div class="rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow">
+          <img 
+            src="https://images.unsplash.com/photo-1556742111-a301076d9d18?w=600&h=400&fit=crop" 
+            alt="Tetrapos Dashboard"
+            class="w-full h-64 object-cover"
+          />
+        </div>
+        <div class="rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow">
+          <img 
+            src="https://images.unsplash.com/photo-1556740758-90de374c12ad?w=600&h=400&fit=crop" 
+            alt="Tetrapos Mobile"
+            class="w-full h-64 object-cover"
+          />
+        </div>
+        <div class="rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow">
+          <img 
+            src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop" 
+            alt="Tetrapos Reports"
+            class="w-full h-64 object-cover"
+          />
+        </div>
+        <div class="rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow">
+          <img 
+            src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop" 
+            alt="Tetrapos Analytics"
+            class="w-full h-64 object-cover"
+          />
+        </div>
+        <div class="rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow">
+          <img 
+            src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&h=400&fit=crop" 
+            alt="Tetrapos Checkout"
+            class="w-full h-64 object-cover"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 bg-gradient-to-br from-primary via-primary-dark to-dark">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+        Ready to Transform Your Business?
+      </h2>
+      <p class="text-xl text-gray-300 mb-8">
+        Get started with Tetrapos today and experience the most powerful WooCommerce POS system. Contact us for pricing and demo.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/contact" class="inline-flex items-center justify-center gap-2 bg-teal hover:bg-teal-light text-white px-8 py-4 rounded-lg font-semibold transition-all duration-200 shadow-lg hover:shadow-xl">
+          Request a Demo
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+        <a href="/contact" class="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-lg font-semibold transition-all duration-200 backdrop-blur-sm border border-white/20">
+          Contact Sales
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
