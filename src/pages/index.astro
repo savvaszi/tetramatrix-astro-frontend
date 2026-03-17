@@ -1,5 +1,31 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getCaseStudies, getImageUrl, getFileId } from '../lib/directus';
+
+// Fetch case studies from Directus
+const directusCaseStudies = await getCaseStudies();
+
+// Fallback static data if Directus is empty
+const fallbackCaseStudies = [
+  { name: 'Sports Hanger', slug: 'sports-hanger', url: 'https://sportshanger.com.cy', type: 'Web Design & Development', image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=600&fit=crop' },
+  { name: 'Michalis Charalambides', slug: 'michalis-charalambides', url: 'https://michalischaralambides.com/', type: 'Web Design & Development', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop' },
+  { name: 'Vigour Gym', slug: 'vigour-gym', url: 'https://vigourstudio-gym.com/', type: 'Web Design & Development', image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&h=600&fit=crop' },
+  { name: 'Savvas Trichas', slug: 'savvas-trichas', url: 'https://savvastrichas.com', type: 'Web Design & Development', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop' },
+  { name: 'Aphrodite Homes', slug: 'aphrodite-homes', url: 'https://www.aphroditehomes.com/', type: 'Web Design & Development', image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600&fit=crop' },
+  { name: 'Epaidia Private Institute', slug: 'epaidia', url: 'https://epaidia.com/', type: 'Web Design & Development, LMS System', image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&h=600&fit=crop' },
+  { name: 'Ousai Real Estate', slug: 'ousai-real-estate', url: 'https://ousai.cy/', type: 'Web Design & Development', image: 'https://images.unsplash.com/photo-1560520031-3a4dc4e9de0c?w=800&h=600&fit=crop' },
+];
+
+// Use Directus data if available, otherwise fallback
+const caseStudies = directusCaseStudies.length > 0 
+  ? directusCaseStudies.map(cs => ({
+      name: cs.name,
+      slug: cs.slug,
+      url: cs.url || '',
+      type: cs.type || '',
+      image: getImageUrl(getFileId(cs.featured_image)) || 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop',
+    }))
+  : fallbackCaseStudies;
 
 const services = [
   {
@@ -29,57 +55,6 @@ const services = [
   },
 ];
 
-const caseStudies = [
-  { 
-    name: 'Sports Hanger', 
-    slug: 'sports-hanger',
-    url: 'https://sportshanger.com.cy', 
-    type: 'Web Design & Development',
-    image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=600&fit=crop',
-  },
-  { 
-    name: 'Michalis Charalambides', 
-    slug: 'michalis-charalambides',
-    url: 'https://michalischaralambides.com/', 
-    type: 'Web Design & Development',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop',
-  },
-  { 
-    name: 'Vigour Gym', 
-    slug: 'vigour-gym',
-    url: 'https://vigourstudio-gym.com/', 
-    type: 'Web Design & Development',
-    image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&h=600&fit=crop',
-  },
-  { 
-    name: 'Savvas Trichas', 
-    slug: 'savvas-trichas',
-    url: 'https://savvastrichas.com', 
-    type: 'Web Design & Development',
-    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop',
-  },
-  { 
-    name: 'Aphrodite Homes', 
-    slug: 'aphrodite-homes',
-    url: 'https://www.aphroditehomes.com/', 
-    type: 'Web Design & Development',
-    image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600&fit=crop',
-  },
-  { 
-    name: 'Epaidia Private Institute', 
-    slug: 'epaidia',
-    url: 'https://epaidia.com/', 
-    type: 'Web Design & Development, LMS System',
-    image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&h=600&fit=crop',
-  },
-  { 
-    name: 'Ousai Real Estate', 
-    slug: 'ousai-real-estate',
-    url: 'https://ousai.cy/', 
-    type: 'Web Design & Development',
-    image: 'https://images.unsplash.com/photo-1560520031-3a4dc4e9de0c?w=800&h=600&fit=crop',
-  },
-];
 ---
 
 <Layout title="Home">

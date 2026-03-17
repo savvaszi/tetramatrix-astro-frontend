@@ -148,3 +148,58 @@ export function getImageUrl(fileId: string | undefined): string {
   if (!fileId) return '';
   return `${DIRECTUS_URL}/assets/${fileId}`;
 }
+
+// Case Studies Types
+export interface CaseStudy {
+  id: string;
+  status: string;
+  sort: number;
+  name: string;
+  slug: string;
+  url?: string;
+  type?: string;
+  description?: string;
+  challenge?: string;
+  solution?: string;
+  technologies?: string[];
+  features?: string[];
+  featured_image?: string | { id: string };
+  screenshots?: Array<{ directus_files_id: string | { id: string } }>;
+}
+
+// Case Studies API Functions
+export async function getCaseStudies(): Promise<CaseStudy[]> {
+  try {
+    return await fetchDirectus<CaseStudy[]>('case_studies?filter[status][_eq]=published&sort=sort&fields=*,featured_image.*,screenshots.directus_files_id.*');
+  } catch (error) {
+    console.error('Error fetching case studies:', error);
+    return [];
+  }
+}
+
+export async function getCaseStudyBySlug(slug: string): Promise<CaseStudy | null> {
+  try {
+    const results = await fetchDirectus<CaseStudy[]>(`case_studies?filter[status][_eq]=published&filter[slug][_eq]=${slug}&fields=*,featured_image.*,screenshots.directus_files_id.*`);
+    return results.length > 0 ? results[0] : null;
+  } catch (error) {
+    console.error('Error fetching case study:', error);
+    return null;
+  }
+}
+
+export async function getAllCaseStudySlugs(): Promise<string[]> {
+  try {
+    const results = await fetchDirectus<CaseStudy[]>('case_studies?filter[status][_eq]=published&fields=slug');
+    return results.map(cs => cs.slug);
+  } catch (error) {
+    console.error('Error fetching case study slugs:', error);
+    return [];
+  }
+}
+
+// Helper to extract file ID from Directus file object
+export function getFileId(file: string | { id: string } | undefined): string | undefined {
+  if (!file) return undefined;
+  if (typeof file === 'string') return file;
+  return file.id;
+}

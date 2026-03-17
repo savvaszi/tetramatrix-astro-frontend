@@ -1,130 +1,120 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { getCaseStudies, getCaseStudyBySlug, getImageUrl, getFileId } from '../../lib/directus';
 
-// Define all case studies with full details
-const caseStudiesData = {
+// Fallback static data
+const fallbackCaseStudies: Record<string, any> = {
   'sports-hanger': {
-    name: 'Sports Hanger',
-    url: 'https://sportshanger.com.cy',
-    type: 'Web Design & Development',
+    name: 'Sports Hanger', url: 'https://sportshanger.com.cy', type: 'Web Design & Development',
     image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1200&h=800&fit=crop',
-    description: 'Sports Hanger is a leading sports equipment and apparel retailer in Cyprus. We designed and developed a modern e-commerce website that showcases their extensive product range and provides a seamless shopping experience.',
-    challenge: 'Sports Hanger needed a website that could handle a large inventory of products while maintaining fast load times and an intuitive user experience for their customers.',
-    solution: 'We built a custom e-commerce solution with advanced filtering, search functionality, and a mobile-first design approach. The site features product categories, size guides, and secure checkout.',
+    description: 'Sports Hanger is a leading sports equipment and apparel retailer in Cyprus. We designed and developed a modern e-commerce website that showcases their extensive product range.',
+    challenge: 'Sports Hanger needed a website that could handle a large inventory of products while maintaining fast load times and an intuitive user experience.',
+    solution: 'We built a custom e-commerce solution with advanced filtering, search functionality, and a mobile-first design approach.',
     technologies: ['WordPress', 'WooCommerce', 'PHP', 'MySQL', 'JavaScript', 'CSS3'],
     features: ['E-commerce functionality', 'Product filtering & search', 'Mobile responsive design', 'Secure payment integration', 'Inventory management'],
-    screenshots: [
-      'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=500&fit=crop',
-      'https://images.unsplash.com/photo-1556906781-9a412961c28c?w=800&h=500&fit=crop',
-      'https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&h=500&fit=crop',
-    ],
+    screenshots: ['https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=500&fit=crop', 'https://images.unsplash.com/photo-1556906781-9a412961c28c?w=800&h=500&fit=crop', 'https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&h=500&fit=crop'],
   },
   'michalis-charalambides': {
-    name: 'Michalis Charalambides',
-    url: 'https://michalischaralambides.com/',
-    type: 'Web Design & Development',
+    name: 'Michalis Charalambides', url: 'https://michalischaralambides.com/', type: 'Web Design & Development',
     image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&h=800&fit=crop',
-    description: 'A professional portfolio website for Michalis Charalambides, showcasing his work and expertise. The site features a clean, modern design that highlights his professional achievements.',
-    challenge: 'Creating a personal brand website that effectively communicates professional expertise while maintaining a clean and memorable design.',
-    solution: 'We developed a minimalist portfolio website with smooth animations, optimized performance, and a focus on content presentation that reflects the client\'s professional image.',
+    description: 'A professional portfolio website for Michalis Charalambides, showcasing his work and expertise.',
+    challenge: 'Creating a personal brand website that effectively communicates professional expertise while maintaining a clean design.',
+    solution: 'We developed a minimalist portfolio website with smooth animations and optimized performance.',
     technologies: ['HTML5', 'CSS3', 'JavaScript', 'GSAP Animations', 'Responsive Design'],
     features: ['Portfolio showcase', 'Contact form', 'Smooth animations', 'SEO optimized', 'Fast loading'],
-    screenshots: [
-      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=500&fit=crop',
-      'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&h=500&fit=crop',
-      'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=500&fit=crop',
-    ],
+    screenshots: ['https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=500&fit=crop', 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&h=500&fit=crop', 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=500&fit=crop'],
   },
   'vigour-gym': {
-    name: 'Vigour Gym',
-    url: 'https://vigourstudio-gym.com/',
-    type: 'Web Design & Development',
+    name: 'Vigour Gym', url: 'https://vigourstudio-gym.com/', type: 'Web Design & Development',
     image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&h=800&fit=crop',
-    description: 'Vigour Gym is a premium fitness studio in Cyprus. We created a dynamic website that captures the energy of the gym and helps attract new members through compelling visuals and easy-to-use booking features.',
-    challenge: 'The gym needed a website that would convey their premium positioning while making it easy for potential members to learn about classes and sign up.',
-    solution: 'We designed an energetic, visually striking website with class schedules, trainer profiles, membership information, and an integrated booking system.',
+    description: 'Vigour Gym is a premium fitness studio in Cyprus. We created a dynamic website that captures the energy of the gym.',
+    challenge: 'The gym needed a website that would convey their premium positioning while making it easy for potential members to sign up.',
+    solution: 'We designed an energetic, visually striking website with class schedules, trainer profiles, and booking system.',
     technologies: ['WordPress', 'PHP', 'JavaScript', 'CSS3', 'Booking System Integration'],
     features: ['Class schedules', 'Trainer profiles', 'Membership plans', 'Online booking', 'Gallery'],
-    screenshots: [
-      'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&h=500&fit=crop',
-      'https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&h=500&fit=crop',
-      'https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&h=500&fit=crop',
-    ],
+    screenshots: ['https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&h=500&fit=crop', 'https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&h=500&fit=crop', 'https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&h=500&fit=crop'],
   },
   'savvas-trichas': {
-    name: 'Savvas Trichas',
-    url: 'https://savvastrichas.com',
-    type: 'Web Design & Development',
+    name: 'Savvas Trichas', url: 'https://savvastrichas.com', type: 'Web Design & Development',
     image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=800&fit=crop',
-    description: 'A professional portfolio and personal branding website for Savvas Trichas. The site showcases professional work, achievements, and provides a platform for connecting with potential clients and collaborators.',
-    challenge: 'Building a personal brand website that stands out while effectively presenting professional credentials and portfolio work.',
-    solution: 'We created a sleek, modern portfolio website with a focus on visual storytelling, easy navigation, and strong calls-to-action.',
+    description: 'A professional portfolio and personal branding website for Savvas Trichas.',
+    challenge: 'Building a personal brand website that stands out while effectively presenting professional credentials.',
+    solution: 'We created a sleek, modern portfolio website with a focus on visual storytelling.',
     technologies: ['React', 'Next.js', 'Tailwind CSS', 'Vercel', 'TypeScript'],
     features: ['Portfolio gallery', 'Blog section', 'Contact integration', 'Social media links', 'Analytics'],
-    screenshots: [
-      'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=500&fit=crop',
-      'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&h=500&fit=crop',
-      'https://images.unsplash.com/photo-1517180102446-f3ece451e9d8?w=800&h=500&fit=crop',
-    ],
+    screenshots: ['https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=500&fit=crop', 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&h=500&fit=crop', 'https://images.unsplash.com/photo-1517180102446-f3ece451e9d8?w=800&h=500&fit=crop'],
   },
   'aphrodite-homes': {
-    name: 'Aphrodite Homes',
-    url: 'https://www.aphroditehomes.com/',
-    type: 'Web Design & Development',
+    name: 'Aphrodite Homes', url: 'https://www.aphroditehomes.com/', type: 'Web Design & Development',
     image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200&h=800&fit=crop',
-    description: 'Aphrodite Homes is a premier real estate company in Cyprus. We developed a comprehensive property listing website with advanced search capabilities and virtual tour integration.',
-    challenge: 'Creating a real estate platform that could showcase properties effectively while providing powerful search and filtering capabilities for buyers.',
-    solution: 'We built a custom real estate website with property listings, advanced search filters, virtual tours, and lead generation forms optimized for conversions.',
+    description: 'Aphrodite Homes is a premier real estate company in Cyprus with comprehensive property listings.',
+    challenge: 'Creating a real estate platform that could showcase properties effectively with powerful search capabilities.',
+    solution: 'We built a custom real estate website with property listings, advanced search filters, and virtual tours.',
     technologies: ['WordPress', 'Custom Theme', 'PHP', 'MySQL', 'Google Maps API', 'JavaScript'],
     features: ['Property listings', 'Advanced search', 'Virtual tours', 'Agent profiles', 'Lead capture forms'],
-    screenshots: [
-      'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=500&fit=crop',
-      'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=500&fit=crop',
-      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=500&fit=crop',
-    ],
+    screenshots: ['https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=500&fit=crop', 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=500&fit=crop', 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=500&fit=crop'],
   },
   'epaidia': {
-    name: 'Epaidia Private Institute',
-    url: 'https://epaidia.com/',
-    type: 'Web Design & Development, LMS System',
+    name: 'Epaidia Private Institute', url: 'https://epaidia.com/', type: 'Web Design & Development, LMS System',
     image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&h=800&fit=crop',
-    description: 'Epaidia is a private educational institute offering online and in-person courses. We developed a complete Learning Management System (LMS) with course management, student portals, and payment integration.',
-    challenge: 'The institute needed a comprehensive platform that could handle course delivery, student management, payments, and provide an engaging learning experience.',
-    solution: 'We implemented a full-featured LMS with video lessons, quizzes, progress tracking, certificates, and a student dashboard. The system also includes admin tools for course management.',
+    description: 'Epaidia is a private educational institute with a complete Learning Management System.',
+    challenge: 'The institute needed a comprehensive platform for course delivery, student management, and payments.',
+    solution: 'We implemented a full-featured LMS with video lessons, quizzes, progress tracking, and certificates.',
     technologies: ['WordPress', 'LearnDash LMS', 'WooCommerce', 'PHP', 'MySQL', 'Video Streaming'],
     features: ['Course management', 'Video lessons', 'Quizzes & assessments', 'Progress tracking', 'Certificates', 'Payment gateway'],
-    screenshots: [
-      'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&h=500&fit=crop',
-      'https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=800&h=500&fit=crop',
-      'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&h=500&fit=crop',
-    ],
+    screenshots: ['https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&h=500&fit=crop', 'https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=800&h=500&fit=crop', 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&h=500&fit=crop'],
   },
   'ousai-real-estate': {
-    name: 'Ousai Real Estate',
-    url: 'https://ousai.cy/',
-    type: 'Web Design & Development',
+    name: 'Ousai Real Estate', url: 'https://ousai.cy/', type: 'Web Design & Development',
     image: 'https://images.unsplash.com/photo-1560520031-3a4dc4e9de0c?w=1200&h=800&fit=crop',
-    description: 'Ousai Real Estate is a modern property agency in Cyprus. We created a sleek, user-friendly website that showcases their property portfolio and makes it easy for clients to find their perfect home.',
-    challenge: 'Developing a real estate website that balances aesthetic appeal with functionality, making property discovery intuitive and engaging.',
-    solution: 'We designed a modern real estate platform with beautiful property galleries, map integration, and smart filtering to help users find properties that match their criteria.',
+    description: 'Ousai Real Estate is a modern property agency in Cyprus with a sleek website.',
+    challenge: 'Developing a real estate website that balances aesthetic appeal with functionality.',
+    solution: 'We designed a modern real estate platform with beautiful property galleries and map integration.',
     technologies: ['WordPress', 'Elementor', 'PHP', 'MySQL', 'Google Maps API', 'AJAX'],
     features: ['Property listings', 'Map integration', 'Property comparison', 'Favorites system', 'Contact forms'],
-    screenshots: [
-      'https://images.unsplash.com/photo-1560520031-3a4dc4e9de0c?w=800&h=500&fit=crop',
-      'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=500&fit=crop',
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=500&fit=crop',
-    ],
+    screenshots: ['https://images.unsplash.com/photo-1560520031-3a4dc4e9de0c?w=800&h=500&fit=crop', 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=500&fit=crop', 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=500&fit=crop'],
   },
 };
 
-export function getStaticPaths() {
-  return Object.keys(caseStudiesData).map((slug) => ({
-    params: { slug },
-  }));
+// Get static paths - combine Directus and fallback slugs
+export async function getStaticPaths() {
+  const directusCaseStudies = await getCaseStudies();
+  const directusSlugs = directusCaseStudies.map(cs => cs.slug);
+  const fallbackSlugs = Object.keys(fallbackCaseStudies);
+  const allSlugs = [...new Set([...directusSlugs, ...fallbackSlugs])];
+  
+  return allSlugs.map((slug) => ({ params: { slug } }));
 }
 
 const { slug } = Astro.params;
-const caseStudy = caseStudiesData[slug as keyof typeof caseStudiesData];
+
+// Try to fetch from Directus first, then fallback to static data
+const directusCaseStudy = await getCaseStudyBySlug(slug as string);
+
+let caseStudy: any;
+if (directusCaseStudy) {
+  // Transform Directus data
+  const screenshotUrls = directusCaseStudy.screenshots?.map(s => {
+    const fileId = typeof s.directus_files_id === 'string' ? s.directus_files_id : s.directus_files_id?.id;
+    return getImageUrl(fileId);
+  }).filter(Boolean) || [];
+  
+  caseStudy = {
+    name: directusCaseStudy.name,
+    url: directusCaseStudy.url || '',
+    type: directusCaseStudy.type || '',
+    image: getImageUrl(getFileId(directusCaseStudy.featured_image)) || 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=800&fit=crop',
+    description: directusCaseStudy.description || '',
+    challenge: directusCaseStudy.challenge || '',
+    solution: directusCaseStudy.solution || '',
+    technologies: directusCaseStudy.technologies || [],
+    features: directusCaseStudy.features || [],
+    screenshots: screenshotUrls.length > 0 ? screenshotUrls : ['https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=500&fit=crop'],
+  };
+} else {
+  // Use fallback static data
+  caseStudy = fallbackCaseStudies[slug as string];
+}
 
 if (!caseStudy) {
   return Astro.redirect('/404');
@@ -219,7 +209,7 @@ if (!caseStudy) {
         <div>
           <h3 class="text-2xl font-bold text-gray-900 mb-6">Technologies Used</h3>
           <div class="flex flex-wrap gap-3">
-            {caseStudy.technologies.map((tech) => (
+            {caseStudy.technologies.map((tech: string) => (
               <span class="bg-primary/10 text-primary px-4 py-2 rounded-lg font-medium">
                 {tech}
               </span>
@@ -231,7 +221,7 @@ if (!caseStudy) {
         <div>
           <h3 class="text-2xl font-bold text-gray-900 mb-6">Key Features</h3>
           <ul class="space-y-3">
-            {caseStudy.features.map((feature) => (
+            {caseStudy.features.map((feature: string) => (
               <li class="flex items-center gap-3 text-gray-700">
                 <svg class="w-5 h-5 text-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
@@ -250,7 +240,7 @@ if (!caseStudy) {
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <h3 class="text-2xl font-bold text-gray-900 mb-8 text-center">Project Screenshots</h3>
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {caseStudy.screenshots.map((screenshot, index) => (
+        {caseStudy.screenshots.map((screenshot: string, index: number) => (
           <div class="rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow">
             <img 
               src={screenshot} 
