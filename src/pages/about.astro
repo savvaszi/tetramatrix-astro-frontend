@@ -1,33 +1,34 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const team = [
-  { name: 'Andreas Georgiou', role: 'CEO & Founder', bio: 'Over 15 years of experience in IT leadership and digital transformation.', image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face' },
-  { name: 'Maria Constantinou', role: 'CTO', bio: 'Expert in cloud architecture and enterprise software solutions.', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&h=300&fit=crop&crop=face' },
-  { name: 'Nikos Papadopoulos', role: 'Lead Developer', bio: 'Full-stack developer with expertise in modern web technologies.', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face' },
-  { name: 'Elena Christodoulou', role: 'Security Specialist', bio: 'Certified cybersecurity expert protecting businesses from threats.', image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=300&fit=crop&crop=face' },
-  { name: 'Christos Michaelides', role: 'Cloud Architect', bio: 'Specialist in AWS and Azure cloud infrastructure design.', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=300&fit=crop&crop=face' },
-  { name: 'Anna Kyriacou', role: 'Project Manager', bio: 'PMP certified with a track record of successful IT project delivery.', image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&h=300&fit=crop&crop=face' },
-];
-
-const values = [
-  { icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z', title: 'Integrity', description: 'We maintain the highest ethical standards in all our business dealings.' },
-  { icon: 'M13 10V3L4 14h7v7l9-11h-7z', title: 'Innovation', description: 'We continuously explore new technologies to deliver cutting-edge solutions.' },
-  { icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z', title: 'Collaboration', description: 'We work closely with our clients to understand and meet their unique needs.' },
-  { icon: 'M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z', title: 'Excellence', description: 'We strive for excellence in every project we undertake.' },
-];
-
-const milestones = [
-  { year: '2014', title: 'Company Founded', description: 'TetraMatrix was established in Nicosia, Cyprus.' },
-  { year: '2016', title: 'First Major Client', description: 'Secured partnership with leading financial institution.' },
-  { year: '2018', title: 'Cloud Certification', description: 'Achieved AWS and Azure partner certifications.' },
-  { year: '2020', title: 'Team Expansion', description: 'Grew to 25+ IT professionals.' },
-  { year: '2022', title: 'Regional Growth', description: 'Expanded services across the Mediterranean region.' },
-  { year: '2024', title: 'Innovation Award', description: 'Recognized for excellence in digital transformation.' },
+const qualities = [
+  {
+    title: 'Quality',
+    description: 'Tetramatrix is committed to providing our clients with the highest quality services. We take pride in our work and we are always striving to improve. We also have a rigorous quality control process in place to ensure that our work meets the highest standards.',
+    details: 'We understand that your website is an important part of your business, and we are committed to creating a website that is both effective and engaging. We also understand that SEO is essential for driving traffic to your website, and we have a team of experts who can help you improve your SEO ranking.',
+  },
+  {
+    title: 'Skills',
+    description: 'Tetramatrix is a team of highly skilled and experienced professionals who are passionate about their work. We have a deep understanding of the digital landscape and the latest technologies.',
+    skills: [
+      'Web design and development',
+      'Search engine optimization (SEO)',
+      'Social media marketing',
+      'Content marketing',
+      'Email marketing',
+      'Paid advertising',
+      'Analytics and reporting',
+    ],
+  },
+  {
+    title: 'Passion',
+    description: 'We are passionate about helping businesses succeed online. We believe that every business has the potential to succeed online, and we are committed to helping them achieve their goals.',
+    details: 'We work closely with our clients to understand their needs and develop customized solutions that meet their unique goals. We are also passionate about the digital landscape and the latest technologies. We are always looking for new and innovative ways to help our clients succeed.',
+  },
 ];
 ---
 
-<Layout title="About Us" description="Learn about TetraMatrix, our mission, values, and the expert team behind our IT solutions.">
+<Layout title="About Us" description="Tetramatrix - Your web agency for the digital age. Quality, Skills, and Passion.">
   <!-- Hero Section -->
   <section class="relative bg-gradient-to-br from-primary via-primary-dark to-dark py-20 lg:py-28">
     <div class="absolute inset-0 opacity-10">
@@ -38,39 +39,66 @@ const milestones = [
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <span class="inline-block text-teal-light font-semibold text-sm uppercase tracking-wider mb-4">About Us</span>
       <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-        Our Story
+        Your Web Agency for the Digital Age
       </h1>
       <p class="text-xl text-gray-300 max-w-3xl mx-auto">
-        A decade of excellence in delivering innovative IT solutions to businesses across Cyprus and beyond.
+        Tetramatrix is a full-service web agency that helps businesses of all sizes achieve their online goals.
       </p>
     </div>
   </section>
 
-  <!-- Mission Section -->
+  <!-- Qualities Section -->
   <section class="py-20 lg:py-28 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-3 gap-12">
+        {qualities.map((quality) => (
+          <div class="bg-gray-light rounded-2xl p-8 hover:shadow-xl transition-shadow">
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">{quality.title}</h3>
+            <p class="text-gray-600 mb-4">{quality.description}</p>
+            {quality.details && (
+              <p class="text-gray-600">{quality.details}</p>
+            )}
+            {quality.skills && (
+              <ul class="space-y-2 mt-4">
+                {quality.skills.map((skill: string) => (
+                  <li class="flex items-center gap-2 text-gray-700">
+                    <svg class="w-5 h-5 text-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    {skill}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Let's Work Together Section -->
+  <section class="py-20 lg:py-28 bg-gray-light">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid lg:grid-cols-2 gap-16 items-center">
         <div>
-          <span class="text-teal font-semibold text-sm uppercase tracking-wider">Our Mission</span>
-          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-3 mb-6">
-            Empowering Businesses Through Technology
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+            Let's Work Together!
           </h2>
           <p class="text-gray-600 text-lg mb-6">
-            At TetraMatrix, we believe that technology should be an enabler, not a barrier. Our mission is to help businesses of all sizes harness the power of modern IT solutions to achieve their goals.
+            Tetramatrix is a full-service web agency that helps businesses of all sizes achieve their online goals. We specialize in web design and development, search engine optimization (SEO), and social media marketing.
+          </p>
+          <p class="text-gray-600 text-lg mb-6">
+            We understand that the digital landscape is constantly changing, and we are committed to staying ahead of the curve. We use the latest technologies and best practices to create effective and engaging online experiences for our clients.
           </p>
           <p class="text-gray-600 text-lg mb-8">
-            Founded in 2014, we have grown from a small team of passionate technologists to a full-service IT company serving clients across multiple industries. Our commitment to excellence and innovation has made us a trusted partner for businesses seeking digital transformation.
+            Our team of experienced and talented professionals is passionate about helping businesses succeed online. We work closely with our clients to understand their needs and develop customized solutions that meet their unique goals.
           </p>
-          <div class="grid grid-cols-2 gap-6">
-            <div class="bg-gray-light rounded-xl p-6">
-              <div class="text-3xl font-bold text-primary mb-1">150+</div>
-              <div class="text-gray-600">Projects Delivered</div>
-            </div>
-            <div class="bg-gray-light rounded-xl p-6">
-              <div class="text-3xl font-bold text-primary mb-1">50+</div>
-              <div class="text-gray-600">Happy Clients</div>
-            </div>
-          </div>
+          <a href="/contact" class="inline-flex items-center gap-2 bg-teal hover:bg-teal-light text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200">
+            Contact Us
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </a>
         </div>
         
         <div class="relative">
@@ -79,118 +107,28 @@ const milestones = [
             alt="Team collaboration" 
             class="w-full rounded-2xl shadow-2xl"
           />
-          <div class="absolute -bottom-8 -left-8 bg-teal text-white rounded-xl p-8 shadow-lg">
-            <div class="text-4xl font-bold mb-1">10+</div>
-            <div class="text-teal-light">Years of Excellence</div>
-          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Values Section -->
-  <section class="py-20 lg:py-28 bg-gray-light">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center max-w-3xl mx-auto mb-16">
-        <span class="text-teal font-semibold text-sm uppercase tracking-wider">Our Values</span>
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-3 mb-4">
-          What Drives Us
-        </h2>
-        <p class="text-gray-600 text-lg">
-          Our core values guide everything we do and shape how we work with our clients.
-        </p>
-      </div>
-
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-        {values.map((value) => (
-          <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow text-center">
-            <div class="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-6">
-              <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={value.icon} />
-              </svg>
-            </div>
-            <h3 class="text-xl font-semibold text-gray-900 mb-3">{value.title}</h3>
-            <p class="text-gray-600">{value.description}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Timeline Section -->
+  <!-- Mission Section -->
   <section class="py-20 lg:py-28 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center max-w-3xl mx-auto mb-16">
-        <span class="text-teal font-semibold text-sm uppercase tracking-wider">Our Journey</span>
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-3 mb-4">
-          Key Milestones
+      <div class="max-w-4xl mx-auto text-center">
+        <span class="text-teal font-semibold text-sm uppercase tracking-wider">Our Mission</span>
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-3 mb-6">
+          Turn Ideas into Reality
         </h2>
-        <p class="text-gray-600 text-lg">
-          A timeline of our growth and achievements over the years.
+        <p class="text-gray-600 text-lg mb-6">
+          Tetramatrix's mission is to make client's ideas into reality. This is a beautiful mission because it is all about helping people to achieve their dreams. When you come to Tetramatrix with an idea, you are putting your trust in the team to help you make it a reality.
         </p>
-      </div>
-
-      <div class="relative">
-        <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-gray-200"></div>
-        
-        <div class="space-y-12">
-          {milestones.map((milestone, index) => (
-            <div class={`relative flex items-center ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
-              <div class={`w-full md:w-1/2 ${index % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12'}`}>
-                <div class="bg-gray-light rounded-xl p-6 inline-block">
-                  <span class="text-teal font-bold text-lg">{milestone.year}</span>
-                  <h3 class="text-xl font-semibold text-gray-900 mt-1">{milestone.title}</h3>
-                  <p class="text-gray-600 mt-2">{milestone.description}</p>
-                </div>
-              </div>
-              <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-teal rounded-full border-4 border-white shadow"></div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Team Section -->
-  <section id="team" class="py-20 lg:py-28 bg-gray-light">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center max-w-3xl mx-auto mb-16">
-        <span class="text-teal font-semibold text-sm uppercase tracking-wider">Our Team</span>
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-3 mb-4">
-          Meet the Experts
-        </h2>
-        <p class="text-gray-600 text-lg">
-          Our talented team of professionals brings diverse expertise to every project.
+        <p class="text-gray-600 text-lg mb-6">
+          The team at Tetramatrix is passionate about helping their clients succeed. We understand that every client has unique needs and goals, and we work closely with each client to develop a customized solution that meets those needs.
         </p>
-      </div>
-
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {team.map((member) => (
-          <div class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
-            <img 
-              src={member.image} 
-              alt={member.name}
-              class="w-full h-64 object-cover"
-            />
-            <div class="p-6">
-              <h3 class="text-xl font-semibold text-gray-900">{member.name}</h3>
-              <p class="text-teal font-medium mb-3">{member.role}</p>
-              <p class="text-gray-600 text-sm">{member.bio}</p>
-              <div class="flex gap-3 mt-4">
-                <a href="#" class="text-gray-400 hover:text-primary transition-colors">
-                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                  </svg>
-                </a>
-                <a href="#" class="text-gray-400 hover:text-primary transition-colors">
-                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </div>
-        ))}
+        <p class="text-gray-600 text-lg">
+          Tetramatrix also has a deep understanding of the digital landscape and the latest technologies, which allows us to create websites and online experiences that are both effective and engaging.
+        </p>
       </div>
     </div>
   </section>
@@ -199,10 +137,10 @@ const milestones = [
   <section class="py-20 bg-gradient-to-br from-primary via-primary-dark to-dark">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
-        Want to Join Our Team?
+        Ready to Get Started?
       </h2>
       <p class="text-xl text-gray-300 mb-8">
-        We're always looking for talented individuals to join our growing team.
+        If you are looking for a web agency that can help you take your business to the next level, contact Tetramatrix today. We offer a free consultation to discuss your needs and how we can help you achieve your goals.
       </p>
       <a href="/contact" class="inline-flex items-center justify-center gap-2 bg-teal hover:bg-teal-light text-white px-8 py-4 rounded-lg font-semibold transition-all duration-200 shadow-lg hover:shadow-xl">
         Get in Touch

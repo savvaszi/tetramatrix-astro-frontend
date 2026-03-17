@@ -3,81 +3,87 @@ import Layout from '../layouts/Layout.astro';
 
 const services = [
   {
-    id: 'it-consulting',
+    id: 'ux-ui-design',
     icon: 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z',
-    title: 'IT Consulting',
-    description: 'Strategic technology guidance to align your IT infrastructure with business objectives.',
+    title: 'UX/UI Design',
+    description: 'Your website is your digital storefront. It\'s where potential customers come to learn about your products or services and decide whether to buy from you. That\'s why it\'s so important to have a website with a great user experience (UX) and user interface (UI).',
     features: [
-      'Technology roadmap development',
-      'Digital transformation strategy',
-      'IT infrastructure assessment',
-      'Vendor selection and management',
-      'Process optimization',
+      'Increased conversions: A well-designed website will convert more visitors into customers',
+      'Improved brand awareness: A visually appealing and informative website will help you build a strong brand identity',
+      'Better SEO: A website that is optimized for search engines will rank higher in search results',
+      'Increased customer satisfaction: A website with a great UX/UI will make visitors happy',
     ],
   },
   {
-    id: 'cloud-solutions',
-    icon: 'M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z',
-    title: 'Cloud Solutions',
-    description: 'Scalable cloud infrastructure and migration services for modern enterprises.',
+    id: 'brand-identity',
+    icon: 'M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01',
+    title: 'Brand Identity',
+    description: 'Your brand identity is what sets you apart from your competitors. It\'s what makes your business unique and memorable. Your brand identity is reflected in everything from your logo and tagline to your website and marketing materials.',
     features: [
-      'Cloud migration planning',
-      'AWS, Azure, GCP deployment',
-      'Hybrid cloud architecture',
-      'Cloud cost optimization',
-      'Disaster recovery solutions',
+      'Increased brand awareness: A strong brand identity will help you build brand awareness',
+      'Improved customer loyalty: Customers are more likely to be loyal to brands that have a strong identity',
+      'Differentiation from competitors: A unique brand identity will help you set yourself apart',
+      'Increased sales: A strong brand identity can lead to increased sales and revenue',
     ],
   },
   {
-    id: 'cybersecurity',
-    icon: 'M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z',
-    title: 'Cybersecurity',
-    description: 'Comprehensive security solutions to protect your digital assets and data.',
+    id: 'marketing-seo',
+    icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z',
+    title: 'Marketing & SEO',
+    description: 'Marketing and SEO are essential for any business that wants to succeed online. Marketing helps you reach your target audience and generate leads. SEO helps your website rank higher in search results.',
     features: [
-      'Security audits and assessments',
-      'Penetration testing',
-      'SIEM implementation',
-      'Compliance management (GDPR, ISO)',
-      'Incident response planning',
+      'Content marketing: Create and distribute high-quality content that will attract visitors',
+      'Social media marketing: Manage your social media accounts and create engaging content',
+      'Search engine optimization (SEO): Optimize your website to rank higher in search results',
+      'Pay-per-click (PPC) advertising: Create and manage PPC campaigns to drive traffic',
     ],
   },
   {
-    id: 'software-development',
+    id: 'web-development',
     icon: 'M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4',
-    title: 'Software Development',
-    description: 'Custom software solutions tailored to your unique business requirements.',
+    title: 'Web Development',
+    description: 'Your website is the foundation of your online presence. It\'s where potential customers come to learn about your products or services and decide whether to buy from you. That\'s why it\'s so important to have a website that is well-designed, developed, and secure.',
     features: [
-      'Custom web applications',
-      'Mobile app development',
-      'API development & integration',
-      'Legacy system modernization',
-      'DevOps implementation',
+      'Website design and development: Create a custom website that meets your specific needs',
+      'Content management systems (CMS): Choose and implement the right CMS for your website',
+      'E-commerce solutions: Build online stores with secure payment processing',
+      'Responsive design: Ensure your website works perfectly on all devices',
     ],
   },
   {
-    id: 'data-analytics',
-    icon: 'M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4',
-    title: 'Data Analytics',
-    description: 'Transform raw data into actionable insights with advanced analytics.',
+    id: 'hosting',
+    icon: 'M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01',
+    title: 'Hosting',
+    description: 'Tetramatrix is one of the fastest and most reliable web hosting providers. We use NVMe drives for hosting and Nginx, LiteSpeed, and OpenLiteSpeed stacks for the fastest possible hosting speeds.',
     features: [
-      'Business intelligence solutions',
-      'Data warehouse design',
-      'Predictive analytics',
-      'Real-time dashboards',
-      'Machine learning integration',
+      'NVMe SSD storage for lightning-fast performance',
+      'Nginx, LiteSpeed, and OpenLiteSpeed web servers',
+      '100% satisfaction guarantee',
+      'Wide range of hosting plans to choose from',
     ],
   },
   {
-    id: 'it-support',
-    icon: 'M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z',
-    title: 'IT Support',
-    description: '24/7 technical support and maintenance for seamless operations.',
+    id: 'vpn-setup',
+    icon: 'M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z',
+    title: 'VPN Setup',
+    description: 'Empower your business with secure and unrestricted internet access through Tetramatrix VPN services for routers. Grant seamless, encrypted connections to all your company devices.',
     features: [
-      '24/7 helpdesk support',
-      'Remote and on-site assistance',
-      'Network monitoring',
-      'Hardware maintenance',
-      'Software updates and patches',
+      'Secure and encrypted connections for all devices',
+      'Bypass geographical restrictions',
+      'Protect business communications and data transfers',
+      'Single subscription for all connected devices',
+    ],
+  },
+  {
+    id: 'virtualization',
+    icon: 'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10',
+    title: 'Virtualization',
+    description: 'Secure your business with Virtual Machines: Cost-effective powerhouse for enhanced security. Virtual machines (VMs) are software-based computers running on top of a physical machine.',
+    features: [
+      'Reduced costs: Cut hardware expenses with VM consolidation',
+      'Increased security through isolation',
+      'Effortless scaling: Quickly add or remove VMs as needed',
+      'Disaster recovery made simple with VM backups',
     ],
   },
 ];
@@ -90,7 +96,7 @@ const process = [
 ];
 ---
 
-<Layout title="Services" description="Explore our comprehensive IT services including consulting, cloud solutions, cybersecurity, and software development.">
+<Layout title="Services" description="We create the best digital products for your business - UX/UI Design, Brand Identity, Marketing & SEO, Web Development, Hosting, VPN Setup, and Virtualization.">
   <!-- Hero Section -->
   <section class="relative bg-gradient-to-br from-primary via-primary-dark to-dark py-20 lg:py-28">
     <div class="absolute inset-0 opacity-10">
@@ -99,12 +105,12 @@ const process = [
     </div>
     
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <span class="inline-block text-teal-light font-semibold text-sm uppercase tracking-wider mb-4">What We Offer</span>
+      <span class="inline-block text-teal-light font-semibold text-sm uppercase tracking-wider mb-4">Our Services</span>
       <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-        Our Services
+        Best Solutions For Your Business
       </h1>
       <p class="text-xl text-gray-300 max-w-3xl mx-auto">
-        Comprehensive IT solutions designed to drive innovation, enhance security, and accelerate your digital transformation.
+        We create the best digital products for your business. From UX/UI design to web development, hosting, and virtualization.
       </p>
     </div>
   </section>
