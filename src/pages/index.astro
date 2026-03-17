@@ -30,13 +30,55 @@ const services = [
 ];
 
 const caseStudies = [
-  { name: 'Sports Hanger', url: 'https://sportshanger.com.cy', type: 'Web Design & Development' },
-  { name: 'Michalis Charalambides', url: 'https://michalischaralambides.com/', type: 'Web Design & Development' },
-  { name: 'Vigour Gym', url: 'https://vigourstudio-gym.com/', type: 'Web Design & Development' },
-  { name: 'Savvas Trichas', url: 'https://savvastrichas.com', type: 'Web Design & Development' },
-  { name: 'Aphrodite Homes', url: 'https://www.aphroditehomes.com/', type: 'Web Design & Development' },
-  { name: 'Epaidia Private Institute', url: 'https://epaidia.com/', type: 'Web Design & Development, LMS System' },
-  { name: 'Ousai Real Estate', url: 'https://ousai.cy/', type: 'Web Design & Development' },
+  { 
+    name: 'Sports Hanger', 
+    slug: 'sports-hanger',
+    url: 'https://sportshanger.com.cy', 
+    type: 'Web Design & Development',
+    image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=600&fit=crop',
+  },
+  { 
+    name: 'Michalis Charalambides', 
+    slug: 'michalis-charalambides',
+    url: 'https://michalischaralambides.com/', 
+    type: 'Web Design & Development',
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop',
+  },
+  { 
+    name: 'Vigour Gym', 
+    slug: 'vigour-gym',
+    url: 'https://vigourstudio-gym.com/', 
+    type: 'Web Design & Development',
+    image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&h=600&fit=crop',
+  },
+  { 
+    name: 'Savvas Trichas', 
+    slug: 'savvas-trichas',
+    url: 'https://savvastrichas.com', 
+    type: 'Web Design & Development',
+    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop',
+  },
+  { 
+    name: 'Aphrodite Homes', 
+    slug: 'aphrodite-homes',
+    url: 'https://www.aphroditehomes.com/', 
+    type: 'Web Design & Development',
+    image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600&fit=crop',
+  },
+  { 
+    name: 'Epaidia Private Institute', 
+    slug: 'epaidia',
+    url: 'https://epaidia.com/', 
+    type: 'Web Design & Development, LMS System',
+    image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&h=600&fit=crop',
+  },
+  { 
+    name: 'Ousai Real Estate', 
+    slug: 'ousai-real-estate',
+    url: 'https://ousai.cy/', 
+    type: 'Web Design & Development',
+    image: 'https://images.unsplash.com/photo-1560520031-3a4dc4e9de0c?w=800&h=600&fit=crop',
+  },
 ];
 ---
 
@@ -160,7 +202,7 @@ const caseStudies = [
   </section>
 
   <!-- Case Studies Section -->
-  <section class="py-20 lg:py-28 bg-gray-light">
+  <section id="case-studies" class="py-20 lg:py-28 bg-gray-light">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center max-w-3xl mx-auto mb-16">
         <span class="text-teal font-semibold text-sm uppercase tracking-wider">Our Case Studies</span>
@@ -174,9 +216,14 @@ const caseStudies = [
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         {caseStudies.map((study) => (
-          <a href={study.url} target="_blank" rel="noopener noreferrer" class="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
-            <div class="aspect-video bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center">
-              <span class="text-white text-2xl font-bold">{study.name}</span>
+          <a href={`/case-studies/${study.slug}`} class="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
+            <div class="aspect-video relative overflow-hidden">
+              <img 
+                src={study.image} 
+                alt={study.name}
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </div>
             <div class="p-6">
               <p class="text-sm text-teal font-medium mb-2">{study.type}</p>

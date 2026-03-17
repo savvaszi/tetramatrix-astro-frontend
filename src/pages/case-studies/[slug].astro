@@ -1,0 +1,288 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+// Define all case studies with full details
+const caseStudiesData = {
+  'sports-hanger': {
+    name: 'Sports Hanger',
+    url: 'https://sportshanger.com.cy',
+    type: 'Web Design & Development',
+    image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1200&h=800&fit=crop',
+    description: 'Sports Hanger is a leading sports equipment and apparel retailer in Cyprus. We designed and developed a modern e-commerce website that showcases their extensive product range and provides a seamless shopping experience.',
+    challenge: 'Sports Hanger needed a website that could handle a large inventory of products while maintaining fast load times and an intuitive user experience for their customers.',
+    solution: 'We built a custom e-commerce solution with advanced filtering, search functionality, and a mobile-first design approach. The site features product categories, size guides, and secure checkout.',
+    technologies: ['WordPress', 'WooCommerce', 'PHP', 'MySQL', 'JavaScript', 'CSS3'],
+    features: ['E-commerce functionality', 'Product filtering & search', 'Mobile responsive design', 'Secure payment integration', 'Inventory management'],
+    screenshots: [
+      'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=500&fit=crop',
+      'https://images.unsplash.com/photo-1556906781-9a412961c28c?w=800&h=500&fit=crop',
+      'https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&h=500&fit=crop',
+    ],
+  },
+  'michalis-charalambides': {
+    name: 'Michalis Charalambides',
+    url: 'https://michalischaralambides.com/',
+    type: 'Web Design & Development',
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&h=800&fit=crop',
+    description: 'A professional portfolio website for Michalis Charalambides, showcasing his work and expertise. The site features a clean, modern design that highlights his professional achievements.',
+    challenge: 'Creating a personal brand website that effectively communicates professional expertise while maintaining a clean and memorable design.',
+    solution: 'We developed a minimalist portfolio website with smooth animations, optimized performance, and a focus on content presentation that reflects the client\'s professional image.',
+    technologies: ['HTML5', 'CSS3', 'JavaScript', 'GSAP Animations', 'Responsive Design'],
+    features: ['Portfolio showcase', 'Contact form', 'Smooth animations', 'SEO optimized', 'Fast loading'],
+    screenshots: [
+      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=500&fit=crop',
+      'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&h=500&fit=crop',
+      'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=500&fit=crop',
+    ],
+  },
+  'vigour-gym': {
+    name: 'Vigour Gym',
+    url: 'https://vigourstudio-gym.com/',
+    type: 'Web Design & Development',
+    image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&h=800&fit=crop',
+    description: 'Vigour Gym is a premium fitness studio in Cyprus. We created a dynamic website that captures the energy of the gym and helps attract new members through compelling visuals and easy-to-use booking features.',
+    challenge: 'The gym needed a website that would convey their premium positioning while making it easy for potential members to learn about classes and sign up.',
+    solution: 'We designed an energetic, visually striking website with class schedules, trainer profiles, membership information, and an integrated booking system.',
+    technologies: ['WordPress', 'PHP', 'JavaScript', 'CSS3', 'Booking System Integration'],
+    features: ['Class schedules', 'Trainer profiles', 'Membership plans', 'Online booking', 'Gallery'],
+    screenshots: [
+      'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&h=500&fit=crop',
+      'https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&h=500&fit=crop',
+      'https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&h=500&fit=crop',
+    ],
+  },
+  'savvas-trichas': {
+    name: 'Savvas Trichas',
+    url: 'https://savvastrichas.com',
+    type: 'Web Design & Development',
+    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=800&fit=crop',
+    description: 'A professional portfolio and personal branding website for Savvas Trichas. The site showcases professional work, achievements, and provides a platform for connecting with potential clients and collaborators.',
+    challenge: 'Building a personal brand website that stands out while effectively presenting professional credentials and portfolio work.',
+    solution: 'We created a sleek, modern portfolio website with a focus on visual storytelling, easy navigation, and strong calls-to-action.',
+    technologies: ['React', 'Next.js', 'Tailwind CSS', 'Vercel', 'TypeScript'],
+    features: ['Portfolio gallery', 'Blog section', 'Contact integration', 'Social media links', 'Analytics'],
+    screenshots: [
+      'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=500&fit=crop',
+      'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&h=500&fit=crop',
+      'https://images.unsplash.com/photo-1517180102446-f3ece451e9d8?w=800&h=500&fit=crop',
+    ],
+  },
+  'aphrodite-homes': {
+    name: 'Aphrodite Homes',
+    url: 'https://www.aphroditehomes.com/',
+    type: 'Web Design & Development',
+    image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200&h=800&fit=crop',
+    description: 'Aphrodite Homes is a premier real estate company in Cyprus. We developed a comprehensive property listing website with advanced search capabilities and virtual tour integration.',
+    challenge: 'Creating a real estate platform that could showcase properties effectively while providing powerful search and filtering capabilities for buyers.',
+    solution: 'We built a custom real estate website with property listings, advanced search filters, virtual tours, and lead generation forms optimized for conversions.',
+    technologies: ['WordPress', 'Custom Theme', 'PHP', 'MySQL', 'Google Maps API', 'JavaScript'],
+    features: ['Property listings', 'Advanced search', 'Virtual tours', 'Agent profiles', 'Lead capture forms'],
+    screenshots: [
+      'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=500&fit=crop',
+      'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=500&fit=crop',
+      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=500&fit=crop',
+    ],
+  },
+  'epaidia': {
+    name: 'Epaidia Private Institute',
+    url: 'https://epaidia.com/',
+    type: 'Web Design & Development, LMS System',
+    image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&h=800&fit=crop',
+    description: 'Epaidia is a private educational institute offering online and in-person courses. We developed a complete Learning Management System (LMS) with course management, student portals, and payment integration.',
+    challenge: 'The institute needed a comprehensive platform that could handle course delivery, student management, payments, and provide an engaging learning experience.',
+    solution: 'We implemented a full-featured LMS with video lessons, quizzes, progress tracking, certificates, and a student dashboard. The system also includes admin tools for course management.',
+    technologies: ['WordPress', 'LearnDash LMS', 'WooCommerce', 'PHP', 'MySQL', 'Video Streaming'],
+    features: ['Course management', 'Video lessons', 'Quizzes & assessments', 'Progress tracking', 'Certificates', 'Payment gateway'],
+    screenshots: [
+      'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&h=500&fit=crop',
+      'https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=800&h=500&fit=crop',
+      'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&h=500&fit=crop',
+    ],
+  },
+  'ousai-real-estate': {
+    name: 'Ousai Real Estate',
+    url: 'https://ousai.cy/',
+    type: 'Web Design & Development',
+    image: 'https://images.unsplash.com/photo-1560520031-3a4dc4e9de0c?w=1200&h=800&fit=crop',
+    description: 'Ousai Real Estate is a modern property agency in Cyprus. We created a sleek, user-friendly website that showcases their property portfolio and makes it easy for clients to find their perfect home.',
+    challenge: 'Developing a real estate website that balances aesthetic appeal with functionality, making property discovery intuitive and engaging.',
+    solution: 'We designed a modern real estate platform with beautiful property galleries, map integration, and smart filtering to help users find properties that match their criteria.',
+    technologies: ['WordPress', 'Elementor', 'PHP', 'MySQL', 'Google Maps API', 'AJAX'],
+    features: ['Property listings', 'Map integration', 'Property comparison', 'Favorites system', 'Contact forms'],
+    screenshots: [
+      'https://images.unsplash.com/photo-1560520031-3a4dc4e9de0c?w=800&h=500&fit=crop',
+      'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=500&fit=crop',
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=500&fit=crop',
+    ],
+  },
+};
+
+export function getStaticPaths() {
+  return Object.keys(caseStudiesData).map((slug) => ({
+    params: { slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const caseStudy = caseStudiesData[slug as keyof typeof caseStudiesData];
+
+if (!caseStudy) {
+  return Astro.redirect('/404');
+}
+---
+
+<Layout title={`${caseStudy.name} - Case Study`} description={caseStudy.description}>
+  <!-- Hero Section -->
+  <section class="relative bg-gradient-to-br from-primary via-primary-dark to-dark py-20 lg:py-28">
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute top-20 right-20 w-72 h-72 bg-teal rounded-full blur-3xl"></div>
+      <div class="absolute bottom-10 left-10 w-96 h-96 bg-accent rounded-full blur-3xl"></div>
+    </div>
+    
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <a href="/#case-studies" class="inline-flex items-center gap-2 text-teal-light hover:text-white mb-6 transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        Back to Case Studies
+      </a>
+      
+      <span class="inline-block text-teal-light font-semibold text-sm uppercase tracking-wider mb-4">{caseStudy.type}</span>
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+        {caseStudy.name}
+      </h1>
+      <p class="text-xl text-gray-300 max-w-3xl">
+        {caseStudy.description}
+      </p>
+      
+      <div class="mt-8">
+        <a 
+          href={caseStudy.url} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 bg-teal hover:bg-teal-light text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200"
+        >
+          Visit Live Site
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Image -->
+  <section class="py-12 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="rounded-2xl overflow-hidden shadow-2xl">
+        <img 
+          src={caseStudy.image} 
+          alt={caseStudy.name}
+          class="w-full h-auto object-cover"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Challenge & Solution -->
+  <section class="py-20 bg-gray-light">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12">
+        <div class="bg-white rounded-2xl p-8 shadow-lg">
+          <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
+            <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">The Challenge</h3>
+          <p class="text-gray-600 text-lg">{caseStudy.challenge}</p>
+        </div>
+        
+        <div class="bg-white rounded-2xl p-8 shadow-lg">
+          <div class="w-12 h-12 bg-teal/10 rounded-xl flex items-center justify-center mb-6">
+            <svg class="w-6 h-6 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">Our Solution</h3>
+          <p class="text-gray-600 text-lg">{caseStudy.solution}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technologies & Features -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12">
+        <!-- Technologies -->
+        <div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-6">Technologies Used</h3>
+          <div class="flex flex-wrap gap-3">
+            {caseStudy.technologies.map((tech) => (
+              <span class="bg-primary/10 text-primary px-4 py-2 rounded-lg font-medium">
+                {tech}
+              </span>
+            ))}
+          </div>
+        </div>
+        
+        <!-- Features -->
+        <div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-6">Key Features</h3>
+          <ul class="space-y-3">
+            {caseStudy.features.map((feature) => (
+              <li class="flex items-center gap-3 text-gray-700">
+                <svg class="w-5 h-5 text-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                {feature}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Screenshots Gallery -->
+  <section class="py-20 bg-gray-light">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h3 class="text-2xl font-bold text-gray-900 mb-8 text-center">Project Screenshots</h3>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {caseStudy.screenshots.map((screenshot, index) => (
+          <div class="rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow">
+            <img 
+              src={screenshot} 
+              alt={`${caseStudy.name} screenshot ${index + 1}`}
+              class="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 bg-gradient-to-br from-primary via-primary-dark to-dark">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+        Ready to Start Your Project?
+      </h2>
+      <p class="text-xl text-gray-300 mb-8">
+        Let's create something amazing together. Contact us to discuss your project requirements.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/contact" class="inline-flex items-center justify-center gap-2 bg-teal hover:bg-teal-light text-white px-8 py-4 rounded-lg font-semibold transition-all duration-200 shadow-lg hover:shadow-xl">
+          Get in Touch
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+        <a href="/" class="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-lg font-semibold transition-all duration-200 backdrop-blur-sm border border-white/20">
+          View More Projects
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
