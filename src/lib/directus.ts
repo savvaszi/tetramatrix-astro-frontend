@@ -203,3 +203,63 @@ export function getFileId(file: string | { id: string } | undefined): string | u
   if (typeof file === 'string') return file;
   return file.id;
 }
+
+// Tetrapos Types
+export interface TetraposPage {
+  id: string;
+  hero_title: string;
+  hero_subtitle?: string;
+  hero_badge?: string;
+  hero_image?: string | { id: string };
+  cta_title?: string;
+  cta_description?: string;
+}
+
+export interface TetraposFeature {
+  id: string;
+  status: string;
+  sort: number;
+  category: 'core' | 'restaurant' | 'stock' | 'modes' | 'additional';
+  title: string;
+  description?: string;
+  icon?: string;
+}
+
+export interface TetraposScreenshot {
+  id: string;
+  sort: number;
+  title?: string;
+  image: string | { id: string };
+}
+
+// Tetrapos API Functions
+export async function getTetraposPage(): Promise<TetraposPage | null> {
+  try {
+    return await fetchDirectus<TetraposPage>('tetrapos?fields=*,hero_image.*');
+  } catch (error) {
+    console.error('Error fetching tetrapos page:', error);
+    return null;
+  }
+}
+
+export async function getTetraposFeatures(category?: string): Promise<TetraposFeature[]> {
+  try {
+    let endpoint = 'tetrapos_features?filter[status][_eq]=published&sort=sort';
+    if (category) {
+      endpoint += `&filter[category][_eq]=${category}`;
+    }
+    return await fetchDirectus<TetraposFeature[]>(endpoint);
+  } catch (error) {
+    console.error('Error fetching tetrapos features:', error);
+    return [];
+  }
+}
+
+export async function getTetraposScreenshots(): Promise<TetraposScreenshot[]> {
+  try {
+    return await fetchDirectus<TetraposScreenshot[]>('tetrapos_screenshots?sort=sort&fields=*,image.*');
+  } catch (error) {
+    console.error('Error fetching tetrapos screenshots:', error);
+    return [];
+  }
+}
