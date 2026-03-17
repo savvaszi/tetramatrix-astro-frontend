@@ -1,0 +1,203 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCaseStudiesWithTranslations, getImageUrl, getFileId } from '../../lib/directus';
+import { t } from '../../lib/i18n';
+
+const lang = 'el';
+
+// Fetch case studies from Directus with Greek translations
+const directusCaseStudies = await getCaseStudiesWithTranslations(lang);
+
+// Fallback static data if Directus is empty
+const fallbackCaseStudies = [
+  { name: 'Sports Hanger', slug: 'sports-hanger', url: 'https://sportshanger.com.cy', type: 'Σχεδιασμός & Ανάπτυξη Ιστοσελίδων', image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=600&fit=crop' },
+  { name: 'Michalis Charalambides', slug: 'michalis-charalambides', url: 'https://michalischaralambides.com/', type: 'Σχεδιασμός & Ανάπτυξη Ιστοσελίδων', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop' },
+  { name: 'Vigour Gym', slug: 'vigour-gym', url: 'https://vigourstudio-gym.com/', type: 'Σχεδιασμός & Ανάπτυξη Ιστοσελίδων', image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&h=600&fit=crop' },
+  { name: 'Savvas Trichas', slug: 'savvas-trichas', url: 'https://savvastrichas.com', type: 'Σχεδιασμός & Ανάπτυξη Ιστοσελίδων', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop' },
+  { name: 'Aphrodite Homes', slug: 'aphrodite-homes', url: 'https://www.aphroditehomes.com/', type: 'Σχεδιασμός & Ανάπτυξη Ιστοσελίδων', image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600&fit=crop' },
+  { name: 'Epaidia Private Institute', slug: 'epaidia', url: 'https://epaidia.com/', type: 'Σχεδιασμός & Ανάπτυξη, Σύστημα LMS', image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&h=600&fit=crop' },
+  { name: 'Ousai Real Estate', slug: 'ousai-real-estate', url: 'https://ousai.cy/', type: 'Σχεδιασμός & Ανάπτυξη Ιστοσελίδων', image: 'https://images.unsplash.com/photo-1560520031-3a4dc4e9de0c?w=800&h=600&fit=crop' },
+];
+
+// Use Directus data if available, otherwise fallback
+const caseStudies = directusCaseStudies.length > 0 
+  ? directusCaseStudies.map(cs => ({
+      name: cs.name,
+      slug: cs.slug,
+      url: cs.url || '',
+      type: cs.type || '',
+      image: getImageUrl(getFileId(cs.featured_image)) || 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop',
+    }))
+  : fallbackCaseStudies;
+
+const services = [
+  {
+    icon: 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z',
+    title: 'Σχεδιασμός UX/UI',
+    description: 'Η ιστοσελίδα σας είναι η ψηφιακή σας βιτρίνα. Εκεί έρχονται οι πιθανοί πελάτες για να μάθουν για τα προϊόντα ή τις υπηρεσίες σας.',
+  },
+  {
+    icon: 'M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01',
+    title: 'Εταιρική Ταυτότητα',
+    description: 'Η εταιρική σας ταυτότητα είναι αυτό που σας ξεχωρίζει από τους ανταγωνιστές. Είναι αυτό που κάνει την επιχείρησή σας μοναδική.',
+  },
+  {
+    icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z',
+    title: 'Marketing & SEO',
+    description: 'Το marketing και το SEO είναι απαραίτητα για κάθε επιχείρηση που θέλει να πετύχει online.',
+  },
+  {
+    icon: 'M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4',
+    title: 'Ανάπτυξη Ιστοσελίδων',
+    description: 'Η ιστοσελίδα σας είναι το θεμέλιο της online παρουσίας σας. Εκεί έρχονται οι πιθανοί πελάτες για να μάθουν για εσάς.',
+  },
+  {
+    icon: 'M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01',
+    title: 'Φιλοξενία',
+    description: 'Οι πελάτες της Tetramatrix απολαμβάνουν τις ταχύτερες δυνατές ταχύτητες φιλοξενίας και τους πιο αξιόπιστους servers.',
+  },
+];
+---
+
+<Layout title="Αρχική" lang={lang}>
+  <!-- Hero Section -->
+  <section class="relative bg-gradient-to-br from-primary via-primary-dark to-dark overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute top-20 left-10 w-72 h-72 bg-teal rounded-full blur-3xl"></div>
+      <div class="absolute bottom-20 right-10 w-96 h-96 bg-accent rounded-full blur-3xl"></div>
+    </div>
+    
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 mb-6">
+            <span class="w-2 h-2 bg-teal-light rounded-full animate-pulse"></span>
+            <span class="text-teal-light text-sm font-medium">Αξιόπιστος IT Συνεργάτης στην Κύπρο</span>
+          </div>
+          
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+            Ψηφιακά Προϊόντα
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-light to-accent"> Για Επιχειρήσεις</span>
+          </h1>
+          
+          <p class="text-xl text-gray-300 mb-8">
+            Βοηθάμε επιχειρήσεις να αναπτυχθούν με καινοτόμες ψηφιακές λύσεις. Από σχεδιασμό ιστοσελίδων έως ολοκληρωμένα συστήματα IT.
+          </p>
+          
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="/el/contact" class="inline-flex items-center justify-center gap-2 bg-teal hover:bg-teal-light text-white px-8 py-4 rounded-lg font-semibold transition-all duration-200 shadow-lg hover:shadow-xl">
+              {t(lang, 'nav.getStarted')}
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+            <a href="#services" class="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-lg font-semibold transition-all duration-200 backdrop-blur-sm border border-white/20">
+              {t(lang, 'home.services')}
+            </a>
+          </div>
+        </div>
+        
+        <div class="relative hidden lg:block">
+          <div class="relative">
+            <div class="absolute inset-0 bg-gradient-to-r from-teal/20 to-accent/20 rounded-2xl blur-2xl"></div>
+            <img 
+              src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&h=600&fit=crop" 
+              alt="Ψηφιακές Λύσεις"
+              class="relative rounded-2xl shadow-2xl"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="py-20 lg:py-28 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-teal font-semibold text-sm uppercase tracking-wider">Υπηρεσίες</span>
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-3 mb-4">
+          {t(lang, 'home.services')}
+        </h2>
+        <p class="text-gray-600 text-lg">
+          Ολοκληρωμένες λύσεις IT προσαρμοσμένες στις ανάγκες της επιχείρησής σας
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {services.map((service) => (
+          <div class="group bg-gray-light rounded-2xl p-8 hover:bg-white hover:shadow-xl transition-all duration-300">
+            <div class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-primary group-hover:scale-110 transition-all duration-300">
+              <svg class="w-7 h-7 text-primary group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={service.icon} />
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-3">{service.title}</h3>
+            <p class="text-gray-600">{service.description}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="text-center mt-12">
+        <a href="/el/services" class="inline-flex items-center gap-2 text-primary font-semibold hover:gap-4 transition-all">
+          {t(lang, 'common.viewAll')}
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Case Studies Section -->
+  <section id="case-studies" class="py-20 lg:py-28 bg-gray-light">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-teal font-semibold text-sm uppercase tracking-wider">{t(lang, 'home.caseStudies')}</span>
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-3 mb-4">
+          {t(lang, 'home.ourWork')}
+        </h2>
+        <p class="text-gray-600 text-lg">
+          Δείτε μερικά από τα έργα που έχουμε ολοκληρώσει για τους πελάτες μας
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {caseStudies.slice(0, 6).map((study) => (
+          <a href={`/el/case-studies/${study.slug}`} class="group block">
+            <div class="relative overflow-hidden rounded-2xl aspect-[4/3]">
+              <img 
+                src={study.image} 
+                alt={study.name}
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent"></div>
+              <div class="absolute bottom-0 left-0 right-0 p-6">
+                <span class="text-teal-light text-sm font-medium">{study.type}</span>
+                <h3 class="text-xl font-semibold text-white mt-1">{study.name}</h3>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 bg-gradient-to-br from-primary via-primary-dark to-dark">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+        Έτοιμοι να Ξεκινήσετε;
+      </h2>
+      <p class="text-xl text-gray-300 mb-8">
+        Επικοινωνήστε μαζί μας σήμερα για να συζητήσουμε πώς μπορούμε να βοηθήσουμε την επιχείρησή σας να αναπτυχθεί.
+      </p>
+      <a href="/el/contact" class="inline-flex items-center justify-center gap-2 bg-teal hover:bg-teal-light text-white px-8 py-4 rounded-lg font-semibold transition-all duration-200 shadow-lg hover:shadow-xl">
+        {t(lang, 'common.contactUs')}
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+    </div>
+  </section>
+</Layout>

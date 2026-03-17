@@ -31,6 +31,12 @@ async function fetchDirectus<T>(endpoint: string, options: RequestInit = {}): Pr
 }
 
 // Types
+// Translation type helper
+export interface Translation {
+  languages_code: string;
+  [key: string]: unknown;
+}
+
 export interface Service {
   id: string;
   status: string;
@@ -40,6 +46,7 @@ export interface Service {
   slug: string;
   icon?: string;
   features?: string[];
+  translations?: Translation[];
 }
 
 export interface TeamMember {
@@ -165,6 +172,7 @@ export interface CaseStudy {
   features?: string[];
   featured_image?: string | { id: string };
   screenshots?: Array<{ directus_files_id: string | { id: string } }>;
+  translations?: Translation[];
 }
 
 // Case Studies API Functions
@@ -213,6 +221,7 @@ export interface TetraposPage {
   hero_image?: string | { id: string };
   cta_title?: string;
   cta_description?: string;
+  translations?: Translation[];
 }
 
 export interface TetraposFeature {
@@ -223,6 +232,7 @@ export interface TetraposFeature {
   title: string;
   description?: string;
   icon?: string;
+  translations?: Translation[];
 }
 
 export interface TetraposScreenshot {
@@ -260,6 +270,78 @@ export async function getTetraposScreenshots(): Promise<TetraposScreenshot[]> {
     return await fetchDirectus<TetraposScreenshot[]>('tetrapos_screenshots?sort=sort&fields=*,image.*');
   } catch (error) {
     console.error('Error fetching tetrapos screenshots:', error);
+    return [];
+  }
+}
+
+// Translation helper - extracts translated content for a specific language
+export function getTranslation<T extends { translations?: Array<{ languages_code: string } & Record<string, unknown>> }>(
+  item: T,
+  lang: string,
+  fields: string[]
+): Partial<T> {
+  if (!item.translations || lang === 'en') {
+    return item;
+  }
+  
+  const translation = item.translations.find(t => t.languages_code === lang);
+  if (!translation) {
+    return item;
+  }
+  
+  const result: Record<string, unknown> = { ...item };
+  for (const field of fields) {
+    if (translation[field] !== undefined && translation[field] !== null && translation[field] !== '') {
+      result[field] = translation[field];
+    }
+  }
+  return result as Partial<T>;
+}
+
+// Fetch services with translations
+export async function getServicesWithTranslations(lang: string = 'en'): Promise<Service[]> {
+  try {
+    const services = await fetchDirectus<Service[]>('services?filter[status][_eq]=published&sort=sort&fields=*,translations.*');
+    return services.map(service => getTranslation(service, lang, ['title', 'description', 'features']) as Service);
+  } catch (error) {
+    console.error('Error fetching services with translations:', error);
+    return [];
+  }
+}
+
+// Fetch case studies with translations
+export async function getCaseStudiesWithTranslations(lang: string = 'en'): Promise<CaseStudy[]> {
+  try {
+    const caseStudies = await fetchDirectus<CaseStudy[]>('case_studies?filter[status][_eq]=published&sort=sort&fields=*,featured_image.*,screenshots.*,translations.*');
+    return caseStudies.map(cs => getTranslation(cs, lang, ['name', 'type', 'description', 'challenge', 'solution']) as CaseStudy);
+  } catch (error) {
+    console.error('Error fetching case studies with translations:', error);
+    return [];
+  }
+}
+
+// Fetch Tetrapos page with translations
+export async function getTetraposPageWithTranslations(lang: string = 'en'): Promise<TetraposPage | null> {
+  try {
+    const page = await fetchDirectus<TetraposPage>('tetrapos?fields=*,hero_image.*,translations.*');
+    return getTranslation(page, lang, ['hero_title', 'hero_subtitle', 'hero_badge', 'cta_title', 'cta_description']) as TetraposPage;
+  } catch (error) {
+    console.error('Error fetching tetrapos page with translations:', error);
+    return null;
+  }
+}
+
+// Fetch Tetrapos features with translations
+export async function getTetraposFeaturesWithTranslations(category?: string, lang: string = 'en'): Promise<TetraposFeature[]> {
+  try {
+    let endpoint = 'tetrapos_features?filter[status][_eq]=published&sort=sort&fields=*,translations.*';
+    if (category) {
+      endpoint += `&filter[category][_eq]=${category}`;
+    }
+    const features = await fetchDirectus<TetraposFeature[]>(endpoint);
+    return features.map(f => getTranslation(f, lang, ['title', 'description']) as TetraposFeature);
+  } catch (error) {
+    console.error('Error fetching tetrapos features with translations:', error);
     return [];
   }
 }

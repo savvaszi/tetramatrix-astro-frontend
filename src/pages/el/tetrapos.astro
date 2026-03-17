@@ -1,0 +1,201 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getTetraposPageWithTranslations, getTetraposFeaturesWithTranslations, getTetraposScreenshots, getImageUrl, getFileId } from '../../lib/directus';
+import { t } from '../../lib/i18n';
+
+const lang = 'el';
+
+// Fetch from Directus with Greek translations
+const directusPage = await getTetraposPageWithTranslations(lang);
+const directusCoreFeatures = await getTetraposFeaturesWithTranslations('core', lang);
+const directusRestaurantFeatures = await getTetraposFeaturesWithTranslations('restaurant', lang);
+const directusStockFeatures = await getTetraposFeaturesWithTranslations('stock', lang);
+const directusModes = await getTetraposFeaturesWithTranslations('modes', lang);
+const directusAdditionalFeatures = await getTetraposFeaturesWithTranslations('additional', lang);
+const directusScreenshots = await getTetraposScreenshots();
+
+// Page content (from Directus or fallback)
+const pageContent = {
+  hero_title: directusPage?.hero_title || 'Tetrapos',
+  hero_subtitle: directusPage?.hero_subtitle || 'Χρησιμοποιήστε το online κατάστημά σας ως τοπικό κατάστημα με ευκολία. Το απόλυτο WooCommerce POS σύστημα για καταστήματα λιανικής, εστιατόρια και καφετέριες. Δεν χρειάζεται ακριβό hardware!',
+  hero_badge: directusPage?.hero_badge || '#1 WooCommerce POS Σύστημα',
+  hero_image: directusPage?.hero_image ? getImageUrl(getFileId(directusPage.hero_image)) : 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=600&fit=crop',
+  cta_title: directusPage?.cta_title || 'Έτοιμοι να Μεταμορφώσετε την Επιχείρησή σας;',
+  cta_description: directusPage?.cta_description || 'Ξεκινήστε με το Tetrapos σήμερα και ζήστε το πιο ισχυρό WooCommerce POS σύστημα. Επικοινωνήστε μαζί μας για τιμές και demo.',
+};
+
+// Fallback static data
+const fallbackCoreFeatures = [
+  { icon: 'M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2', title: 'Χωρίς Ακριβό Hardware', description: 'Δεν χρειάζεται ακριβό hardware για να λειτουργήσει το Tetrapos. Εξοικονομήστε χρήματα - χρησιμοποιήστε τις υπάρχουσες συσκευές σας!' },
+  { icon: 'M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z', title: 'Σάρωση Barcode & Αναζήτηση', description: 'Προσθέστε προϊόντα στο καλάθι σαρώνοντας barcodes με scanner ή κάμερα.' },
+  { icon: 'M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z', title: 'Αποθήκευση Δεδομένων Offline', description: 'Δυνατότητα αποθήκευσης δεδομένων τοπικά και λειτουργίας χωρίς internet.' },
+  { icon: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z', title: 'Διαχείριση Ταμείου', description: 'Δείτε το τρέχον υπόλοιπο ταμείου, πληροφορίες παραγγελιών. Άνοιγμα, κλείσιμο και διαχείριση ταμείων.' },
+];
+
+const fallbackPosModes = [
+  { title: 'Λειτουργία Λιανικής', description: 'Ιδανικό για καταστήματα λιανικής, σούπερ μάρκετ και παντοπωλεία με γρήγορο checkout.', icon: 'M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z' },
+  { title: 'Εστιατόριο (Πληρωμή Πρώτα)', description: 'Οι πελάτες πληρώνουν εκ των προτέρων στον πάγκο. Ιδανικό για fast food και καφετέριες.', icon: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z' },
+  { title: 'Εστιατόριο (Παραδοσιακό)', description: 'Ο σερβιτόρος παίρνει παραγγελίες, η κουζίνα ετοιμάζει, ο σερβιτόρος σερβίρει, μετά πληρωμή.', icon: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4' },
+];
+
+const fallbackScreenshots = [
+  { title: 'Tetrapos POS Interface', image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop' },
+  { title: 'Tetrapos Dashboard', image: 'https://images.unsplash.com/photo-1556742111-a301076d9d18?w=600&h=400&fit=crop' },
+  { title: 'Tetrapos Mobile', image: 'https://images.unsplash.com/photo-1556740758-90de374c12ad?w=600&h=400&fit=crop' },
+];
+
+// Use Directus data if available, otherwise fallback
+const coreFeatures = directusCoreFeatures.length > 0 ? directusCoreFeatures : fallbackCoreFeatures;
+const posModes = directusModes.length > 0 ? directusModes : fallbackPosModes;
+const screenshots = directusScreenshots.length > 0 
+  ? directusScreenshots.map(s => ({ title: s.title || 'Screenshot', image: getImageUrl(getFileId(s.image)) || '' }))
+  : fallbackScreenshots;
+---
+
+<Layout title="Tetrapos - Σύστημα Σημείου Πώλησης" lang={lang}>
+  <!-- Hero Section -->
+  <section class="relative bg-gradient-to-br from-primary via-primary-dark to-dark py-20 lg:py-32 overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute top-20 left-10 w-72 h-72 bg-teal rounded-full blur-3xl"></div>
+      <div class="absolute bottom-20 right-10 w-96 h-96 bg-accent rounded-full blur-3xl"></div>
+    </div>
+    
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <span class="inline-block bg-teal/20 text-teal-light px-4 py-2 rounded-full text-sm font-semibold mb-6">
+            {pageContent.hero_badge}
+          </span>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+            {pageContent.hero_title}
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-light to-accent"> Σημείο Πώλησης</span>
+          </h1>
+          <p class="text-xl text-gray-300 mb-8">
+            {pageContent.hero_subtitle}
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="/el/contact" class="inline-flex items-center justify-center gap-2 bg-teal hover:bg-teal-light text-white px-8 py-4 rounded-lg font-semibold transition-all duration-200 shadow-lg hover:shadow-xl">
+              {t(lang, 'nav.getStarted')}
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+            <a href="#features" class="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-lg font-semibold transition-all duration-200 backdrop-blur-sm border border-white/20">
+              {t(lang, 'common.viewFeatures')}
+            </a>
+          </div>
+        </div>
+        
+        <div class="relative">
+          <img 
+            src={pageContent.hero_image} 
+            alt="Tetrapos POS System"
+            class="w-full rounded-2xl shadow-2xl"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POS Modes Section -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-teal font-semibold text-sm uppercase tracking-wider">Ευέλικτες Λειτουργίες</span>
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-3 mb-4">
+          Ένα Σύστημα, Πολλαπλοί Τύποι Επιχειρήσεων
+        </h2>
+        <p class="text-gray-600 text-lg">
+          Το Tetrapos προσαρμόζεται στο επιχειρηματικό σας μοντέλο με τρεις διαφορετικές λειτουργίες.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        {posModes.map((mode: { title: string; description: string; icon: string }) => (
+          <div class="bg-gray-light rounded-2xl p-8 text-center hover:shadow-xl transition-all duration-300">
+            <div class="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-6">
+              <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={mode.icon} />
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-3">{mode.title}</h3>
+            <p class="text-gray-600">{mode.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Features Section -->
+  <section id="features" class="py-20 lg:py-28 bg-gray-light">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-teal font-semibold text-sm uppercase tracking-wider">Χαρακτηριστικά</span>
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-3 mb-4">
+          Βασικά Χαρακτηριστικά POS
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {coreFeatures.map((feature: { icon?: string; title: string; description?: string }) => (
+          <div class="bg-white rounded-2xl p-6 hover:shadow-xl transition-all duration-300">
+            <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={feature.icon} />
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">{feature.title}</h3>
+            <p class="text-gray-600 text-sm">{feature.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Screenshots Section -->
+  <section class="py-20 lg:py-28 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-teal font-semibold text-sm uppercase tracking-wider">Screenshots</span>
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-3 mb-4">
+          Δείτε το Tetrapos σε Δράση
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {screenshots.map((screenshot: { title: string; image: string }) => (
+          <div class="rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow">
+            <img 
+              src={screenshot.image} 
+              alt={screenshot.title}
+              class="w-full h-64 object-cover"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 bg-gradient-to-br from-primary via-primary-dark to-dark">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+        {pageContent.cta_title}
+      </h2>
+      <p class="text-xl text-gray-300 mb-8">
+        {pageContent.cta_description}
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/el/contact" class="inline-flex items-center justify-center gap-2 bg-teal hover:bg-teal-light text-white px-8 py-4 rounded-lg font-semibold transition-all duration-200 shadow-lg hover:shadow-xl">
+          {t(lang, 'common.requestDemo')}
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+        <a href="/el/contact" class="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-lg font-semibold transition-all duration-200 backdrop-blur-sm border border-white/20">
+          {t(lang, 'common.contactSales')}
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

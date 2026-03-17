@@ -1,0 +1,122 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getServicesWithTranslations } from '../../lib/directus';
+import { t } from '../../lib/i18n';
+
+const lang = 'el';
+
+// Fetch services from Directus with Greek translations
+const directusServices = await getServicesWithTranslations(lang);
+
+// Fallback static data
+const fallbackServices = [
+  {
+    icon: 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z',
+    title: 'Σχεδιασμός UX/UI',
+    description: 'Η ιστοσελίδα σας είναι η ψηφιακή σας βιτρίνα. Δημιουργούμε εμπειρίες χρήστη που μετατρέπουν επισκέπτες σε πελάτες.',
+    slug: 'ux-ui-design',
+    features: ['Έρευνα χρηστών', 'Wireframing', 'Prototyping', 'Οπτικός σχεδιασμός', 'Δοκιμές χρηστικότητας'],
+  },
+  {
+    icon: 'M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4',
+    title: 'Ανάπτυξη Ιστοσελίδων',
+    description: 'Κατασκευάζουμε γρήγορες, ασφαλείς και επεκτάσιμες ιστοσελίδες χρησιμοποιώντας τις τελευταίες τεχνολογίες.',
+    slug: 'web-development',
+    features: ['Custom Development', 'WordPress', 'E-commerce', 'Web Applications', 'API Development'],
+  },
+  {
+    icon: 'M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01',
+    title: 'Εταιρική Ταυτότητα',
+    description: 'Δημιουργούμε μοναδικές εταιρικές ταυτότητες που ξεχωρίζουν την επιχείρησή σας από τον ανταγωνισμό.',
+    slug: 'brand-identity',
+    features: ['Σχεδιασμός λογοτύπου', 'Χρωματική παλέτα', 'Τυπογραφία', 'Brand Guidelines', 'Στρατηγική brand'],
+  },
+  {
+    icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z',
+    title: 'Marketing & SEO',
+    description: 'Αυξήστε την online παρουσία σας με στρατηγικές marketing και βελτιστοποίηση μηχανών αναζήτησης.',
+    slug: 'marketing-seo',
+    features: ['SEO', 'Google Ads', 'Social Media', 'Content Marketing', 'Analytics'],
+  },
+  {
+    icon: 'M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01',
+    title: 'Φιλοξενία & Υποστήριξη',
+    description: 'Αξιόπιστη φιλοξενία με 24/7 υποστήριξη για να διασφαλίσουμε ότι η ιστοσελίδα σας είναι πάντα online.',
+    slug: 'hosting',
+    features: ['Cloud Hosting', 'SSL Certificates', 'Daily Backups', '24/7 Support', 'Performance Monitoring'],
+  },
+];
+
+const services = directusServices.length > 0 ? directusServices : fallbackServices;
+---
+
+<Layout title={t(lang, 'services.title')} lang={lang}>
+  <!-- Hero Section -->
+  <section class="relative bg-gradient-to-br from-primary via-primary-dark to-dark py-20 lg:py-28 overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute top-20 left-10 w-72 h-72 bg-teal rounded-full blur-3xl"></div>
+      <div class="absolute bottom-20 right-10 w-96 h-96 bg-accent rounded-full blur-3xl"></div>
+    </div>
+    
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <span class="inline-block bg-teal/20 text-teal-light px-4 py-2 rounded-full text-sm font-semibold mb-6">
+        {t(lang, 'services.title')}
+      </span>
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+        Ολοκληρωμένες Λύσεις IT
+      </h1>
+      <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+        {t(lang, 'services.subtitle')}
+      </p>
+    </div>
+  </section>
+
+  <!-- Services Grid -->
+  <section class="py-20 lg:py-28 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {services.map((service) => (
+          <div class="group bg-gray-light rounded-2xl p-8 hover:bg-white hover:shadow-xl transition-all duration-300">
+            <div class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-primary group-hover:scale-110 transition-all duration-300">
+              <svg class="w-7 h-7 text-primary group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={service.icon} />
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-3">{service.title}</h3>
+            <p class="text-gray-600 mb-6">{service.description}</p>
+            {service.features && (
+              <ul class="space-y-2">
+                {service.features.map((feature: string) => (
+                  <li class="flex items-center gap-2 text-sm text-gray-600">
+                    <svg class="w-4 h-4 text-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 bg-gradient-to-br from-primary via-primary-dark to-dark">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+        Έτοιμοι να Ξεκινήσετε;
+      </h2>
+      <p class="text-xl text-gray-300 mb-8">
+        Επικοινωνήστε μαζί μας σήμερα για να συζητήσουμε το έργο σας.
+      </p>
+      <a href="/el/contact" class="inline-flex items-center justify-center gap-2 bg-teal hover:bg-teal-light text-white px-8 py-4 rounded-lg font-semibold transition-all duration-200 shadow-lg hover:shadow-xl">
+        {t(lang, 'common.contactUs')}
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+    </div>
+  </section>
+</Layout>

@@ -1,19 +1,26 @@
 ---
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import { getLangFromUrl, t, getLocalizedPath } from '../lib/i18n';
+
+const currentLang = getLangFromUrl(Astro.url);
+const currentPath = Astro.url.pathname;
+
 const navLinks = [
-  { href: '/', label: 'Home' },
-  { href: '/services', label: 'Services' },
-  { href: '/tetrapos', label: 'Tetrapos' },
-  { href: '/about', label: 'About' },
-  { href: '/contact', label: 'Contact' },
+  { href: getLocalizedPath('/', currentLang), label: t(currentLang, 'nav.home') },
+  { href: getLocalizedPath('/services', currentLang), label: t(currentLang, 'nav.services') },
+  { href: getLocalizedPath('/tetrapos', currentLang), label: t(currentLang, 'nav.tetrapos') },
+  { href: getLocalizedPath('/about', currentLang), label: t(currentLang, 'nav.about') },
+  { href: getLocalizedPath('/contact', currentLang), label: t(currentLang, 'nav.contact') },
 ];
 
-const currentPath = Astro.url.pathname;
+const homeHref = getLocalizedPath('/', currentLang);
+const contactHref = getLocalizedPath('/contact', currentLang);
 ---
 
 <header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100 shadow-sm">
   <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-20">
-      <a href="/" class="flex items-center gap-3">
+      <a href={homeHref} class="flex items-center gap-3">
         <img 
           src="/TetramatrixMainLogo1.webp" 
           alt="TetraMatrix Logo" 
@@ -35,11 +42,12 @@ const currentPath = Astro.url.pathname;
           </a>
         ))}
         <a
-          href="/contact"
+          href={contactHref}
           class="bg-primary hover:bg-primary-light text-white px-6 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 shadow-md hover:shadow-lg"
         >
-          Get Started
+          {t(currentLang, 'nav.getStarted')}
         </a>
+        <LanguageSwitcher />
       </div>
 
       <button
@@ -68,11 +76,12 @@ const currentPath = Astro.url.pathname;
           </a>
         ))}
         <a
-          href="/contact"
+          href={contactHref}
           class="bg-primary text-white px-6 py-2.5 rounded-lg text-sm font-semibold text-center"
         >
-          Get Started
+          {t(currentLang, 'nav.getStarted')}
         </a>
+        <LanguageSwitcher />
       </div>
     </div>
   </nav>

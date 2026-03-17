@@ -1,0 +1,192 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { getCaseStudyBySlug, getAllCaseStudySlugs, getImageUrl, getFileId } from '../../../lib/directus';
+import { t } from '../../../lib/i18n';
+
+const lang = 'el';
+
+export async function getStaticPaths() {
+  const directusSlugs = await getAllCaseStudySlugs();
+  const fallbackSlugs = ['sports-hanger', 'michalis-charalambides', 'vigour-gym', 'savvas-trichas', 'aphrodite-homes', 'epaidia', 'ousai-real-estate'];
+  const allSlugs = [...new Set([...directusSlugs, ...fallbackSlugs])];
+  return allSlugs.map(slug => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+
+// Fallback data
+const fallbackCaseStudies: Record<string, { name: string; type: string; description: string; challenge: string; solution: string; technologies: string[]; features: string[]; image: string; screenshots: string[]; url: string }> = {
+  'sports-hanger': {
+    name: 'Sports Hanger',
+    type: 'Σχεδιασμός & Ανάπτυξη Ιστοσελίδων',
+    description: 'E-commerce πλατφόρμα για αθλητικά είδη στην Κύπρο.',
+    challenge: 'Δημιουργία μιας σύγχρονης e-commerce πλατφόρμας που να ξεχωρίζει στην αγορά.',
+    solution: 'Αναπτύξαμε ένα custom WooCommerce κατάστημα με προηγμένο φιλτράρισμα προϊόντων.',
+    technologies: ['WordPress', 'WooCommerce', 'PHP', 'JavaScript'],
+    features: ['E-commerce', 'Διαχείριση Αποθέματος', 'Online Πληρωμές', 'Responsive Design'],
+    image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=600&fit=crop',
+    screenshots: ['https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=600&h=400&fit=crop'],
+    url: 'https://sportshanger.com.cy',
+  },
+};
+
+// Fetch from Directus or use fallback
+const directusCaseStudy = await getCaseStudyBySlug(slug || '');
+const fallbackData = fallbackCaseStudies[slug || ''];
+
+if (!directusCaseStudy && !fallbackData) {
+  return Astro.redirect('/el');
+}
+
+const caseStudy = directusCaseStudy ? {
+  name: directusCaseStudy.name,
+  type: directusCaseStudy.type || '',
+  description: directusCaseStudy.description || '',
+  challenge: directusCaseStudy.challenge || '',
+  solution: directusCaseStudy.solution || '',
+  technologies: directusCaseStudy.technologies || [],
+  features: directusCaseStudy.features || [],
+  image: getImageUrl(getFileId(directusCaseStudy.featured_image)) || '',
+  screenshots: directusCaseStudy.screenshots?.map(s => getImageUrl(getFileId(s.directus_files_id)) || '') || [],
+  url: directusCaseStudy.url || '',
+} : fallbackData;
+---
+
+<Layout title={caseStudy.name} lang={lang}>
+  <!-- Hero Section -->
+  <section class="relative bg-gradient-to-br from-primary via-primary-dark to-dark py-20 lg:py-28 overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute top-20 left-10 w-72 h-72 bg-teal rounded-full blur-3xl"></div>
+      <div class="absolute bottom-20 right-10 w-96 h-96 bg-accent rounded-full blur-3xl"></div>
+    </div>
+    
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <a href="/el/#case-studies" class="inline-flex items-center gap-2 text-teal-light hover:text-white mb-8 transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        Πίσω στις Μελέτες Περιπτώσεων
+      </a>
+      
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <span class="inline-block bg-teal/20 text-teal-light px-4 py-2 rounded-full text-sm font-semibold mb-6">
+            {caseStudy.type}
+          </span>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+            {caseStudy.name}
+          </h1>
+          <p class="text-xl text-gray-300 mb-8">
+            {caseStudy.description}
+          </p>
+          {caseStudy.url && (
+            <a 
+              href={caseStudy.url} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 bg-teal hover:bg-teal-light text-white px-6 py-3 rounded-lg font-semibold transition-all"
+            >
+              Επίσκεψη Ιστοσελίδας
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
+          )}
+        </div>
+        
+        <div class="relative">
+          <img 
+            src={caseStudy.image} 
+            alt={caseStudy.name}
+            class="w-full rounded-2xl shadow-2xl"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Challenge & Solution -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-2 gap-12">
+        <div>
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">Η Πρόκληση</h2>
+          <p class="text-gray-600 text-lg">{caseStudy.challenge}</p>
+        </div>
+        <div>
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">Η Λύση</h2>
+          <p class="text-gray-600 text-lg">{caseStudy.solution}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technologies & Features -->
+  <section class="py-20 bg-gray-light">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-2 gap-12">
+        <div>
+          <h2 class="text-2xl font-bold text-gray-900 mb-6">Τεχνολογίες</h2>
+          <div class="flex flex-wrap gap-3">
+            {caseStudy.technologies.map((tech: string) => (
+              <span class="bg-primary/10 text-primary px-4 py-2 rounded-lg font-medium">
+                {tech}
+              </span>
+            ))}
+          </div>
+        </div>
+        <div>
+          <h2 class="text-2xl font-bold text-gray-900 mb-6">Χαρακτηριστικά</h2>
+          <ul class="space-y-3">
+            {caseStudy.features.map((feature: string) => (
+              <li class="flex items-center gap-3 text-gray-700">
+                <svg class="w-5 h-5 text-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                {feature}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Screenshots -->
+  {caseStudy.screenshots.length > 0 && (
+    <section class="py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-bold text-gray-900 mb-8 text-center">Screenshots</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {caseStudy.screenshots.map((screenshot: string, index: number) => (
+            <div class="rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow">
+              <img 
+                src={screenshot} 
+                alt={`${caseStudy.name} screenshot ${index + 1}`}
+                class="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- CTA -->
+  <section class="py-20 bg-gradient-to-br from-primary via-primary-dark to-dark">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+        Έτοιμοι να Ξεκινήσετε το Δικό σας Έργο;
+      </h2>
+      <p class="text-xl text-gray-300 mb-8">
+        Επικοινωνήστε μαζί μας σήμερα για να συζητήσουμε πώς μπορούμε να βοηθήσουμε.
+      </p>
+      <a href="/el/contact" class="inline-flex items-center justify-center gap-2 bg-teal hover:bg-teal-light text-white px-8 py-4 rounded-lg font-semibold transition-all duration-200 shadow-lg hover:shadow-xl">
+        {t(lang, 'common.contactUs')}
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+    </div>
+  </section>
+</Layout>
